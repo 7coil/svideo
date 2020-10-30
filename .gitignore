@@ -1,0 +1,6 @@
+test/
+temp/
+dist/
+.parcel-cache/
+node_modules/
+*.sb3

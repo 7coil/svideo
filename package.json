@@ -1,0 +1,26 @@
+{
+  "name": "scratchvideo",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@types/ffmpeg-static": "^3.0.0",
+    "@types/node": "^14.14.6",
+    "adm-zip": "^0.4.16",
+    "ffmpeg-static": "^4.2.7",
+    "parcel": "^2.0.0-beta.1",
+    "regenerator-runtime": "^0.13.7"
+  },
+  "targets": {
+    "main": {
+      "context": "node",
+      "distDir": "./dist/"
+    }
+  },
+  "scripts": {
+    "build": "parcel build --target main src/index.ts"
+  },
+  "devDependencies": {
+    "@types/adm-zip": "^0.4.33"
+  }
+}
