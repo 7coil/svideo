@@ -60,7 +60,7 @@ You need to reimplement the audio playing functionality in Scratch to accept mul
 - https://scratch.mit.edu/projects/443018391/
 - https://www.youtube.com/watch?v=b6li05zh3Kg
 
-[![Why Not? by LOONA](.github/FrbZCOUwBt.gif)](https://scratch.mit.edu/projects/443018391/)
+[![Why Not? by LOONA](.github/6ogFn8GBAR.gif)](https://scratch.mit.edu/projects/443018391/)
 
 ## Licence
 This project is licenced under the MIT licence. Because it's MIT Scratch. Haha.
