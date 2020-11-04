@@ -1,61 +1,154 @@
-import fs, { existsSync, mkdirSync } from 'fs';
+import AdmZip from 'adm-zip';
+import "core-js/features/string/replace-all";
+import fs, { existsSync } from 'fs';
 import path from 'path';
 import 'regenerator-runtime';
+import "regenerator-runtime/runtime";
+import templateBackground from 'url:./template/cd21514d0531fdffb22204e0ec5ed84a.svg';
+import templateProject from 'url:./template/project.json';
+import yargs from 'yargs';
 import { convertToAudioSnippets, convertToCostumes } from './assets';
-import { convertInputToAudio, convertInputToPictures } from './ffmpeg';
+import { convertInputToAudio, convertInputToPictures, obtainMediaInfo, parseFrameRate } from './ffmpeg';
 import { hashFilesInFolder } from './files';
-import AdmZip from 'adm-zip';
 
-const templateVideoReplacementString = '["// SCRATCHVIDEO //"]';
-const templateAudioReplacementString = '["// SCRATCHAUDIO //"]';
-const templateFramesReplacementRegex = /0e5318008/g
-const stripFrameCount = 30;
 
-const template = fs.readFileSync(path.join(__dirname, '..', 'template', 'project.json'), 'utf8')
+const SCRATCH_WIDTH = 480;
 
-if (!process.argv[3]) throw new Error('Second argument must be an output folder.')
+const { argv } = yargs(process.argv.slice(2))
+  .options({
+    framesPerStrip: {
+      type: 'number',
+      alias: 'n',
+      default: 30,
+      description: 'The number of frames in a strip'
+    },
+    input: {
+      type: 'string',
+      alias: 'i',
+      demandOption: true,
+      description: 'Path to the video file'
+    },
+    output: {
+      type: 'string',
+      alias: 'o',
+      demandOption: true,
+      description: 'Filename and path to the output file. End in `.sb3`'
+    },
+    horizontalResolution: {
+      type: 'number',
+      alias: 'h',
+      default: 480,
+      description: 'The horizontal resolution of each frame'
+    },
+    temporaryFolder: {
+      type: 'string',
+      alias: 't',
+      default: 'temp/',
+      coerce: opt => {
+        let loc = path.join(__dirname, opt);
+        if (existsSync(loc)) {
+          // Clear existing temporary folder
+          fs.readdirSync(loc)
+            .forEach(file => fs.unlinkSync(path.resolve(loc, file)))
+        } else {
+          // Create the folder
+          fs.mkdirSync(loc)
+        }
+        return loc
+      },
+      normalize: true,
+      description: 'Path to a temporary folder for use while building the project'
+    },
+    imageFileFormat: {
+      choices: ['png', 'jpg'],
+      alias: 'f',
+      default: 'png',
+      description: 'The file format of frames in the output'
+    },
+    frameRate: {
+      type: 'number',
+      alias: 'r',
+      description: 'The framerate of the output'
+    },
+    audioInterval: {
+      type: 'number',
+      alias: 's',
+      default: 0,
+      description: 'The number of seconds between cuts in the audio',
+      defaultDescription: 'No cuts'
+    }
+  })
+  .wrap(yargs.terminalWidth())
 
-const inputFile = process.argv[2];
-const outputFile = process.argv[3];
-if (!existsSync(inputFile)) throw new Error('Input file not found!')
-if (existsSync(outputFile)) console.error('Overwriting output file!')
-if (!existsSync('temp')) mkdirSync('temp')
+enum ProjectReplacementString {
+  VIDEO = '[false,1,1]',
+  AUDIO = '[false,1,2]',
+  FRAMERATE = '[false,1,3]',
+  FRAMES = '[false,1,4]',
+  SCALE = '[false,1,5]',
+  STRIP = '[false,1,6]',
+  AUDIO_INTERVAL = '[false,1,7]'
+}
 
-const templateFolder = path.resolve('template/');
-const tempFolder = path.resolve('temp/');
+if (!existsSync(argv.input)) throw new Error('Input file not found!')
+if (existsSync(argv.output)) console.error('Overwriting output file!');
 
 (async () => {
-  fs.readdirSync(tempFolder)
-    .forEach(file => fs.unlinkSync(path.resolve(tempFolder, file)))
+  const inputFileDetails = await obtainMediaInfo({ inputFile: argv.input });
+  console.log(inputFileDetails)
+  const videoStreamDetails = inputFileDetails.streams.find(stream => stream.codec_type === 'video')
+  if (!videoStreamDetails) {
+    throw new Error('Video stream not found!')
+  }
 
-  await convertInputToPictures({ inputFile, tempFolder, stripFrameCount })
-  await convertInputToAudio({ inputFile, tempFolder })
-  const hashFiles = await hashFilesInFolder({ folder: tempFolder })
-  const costumes = convertToCostumes(hashFiles.filter(file => file.extension === '.png'));
-  const audioClips = convertToAudioSnippets(hashFiles.filter(file => file.extension === '.mp3'));
-  const frames = stripFrameCount * costumes.length
+  const videoStreamFrameRate = parseFrameRate({
+    frameRate: videoStreamDetails.r_frame_rate
+  })
+  let outputFrameRate = 0;
+  if (argv.frameRate && argv.frameRate < videoStreamFrameRate.value) {
+    outputFrameRate = argv.frameRate
+  } else {
+    outputFrameRate = videoStreamFrameRate.value
+  }
 
-  const output = template
-    .replace(templateVideoReplacementString, JSON.stringify(costumes))
-    .replace(templateAudioReplacementString, JSON.stringify(audioClips))
-    .replace(templateFramesReplacementRegex, frames.toString())
+  await convertInputToAudio({
+    inputFile: argv.input,
+    tempFolder: argv.temporaryFolder,
+    audioInterval: argv.audioInterval,
+  })
 
-  const filesToCopy = fs.readdirSync(templateFolder);
-  filesToCopy
-    .filter(file => file !== 'project.json')
-    .forEach(file => fs.copyFileSync(
-      path.resolve(templateFolder, file),
-      path.resolve(tempFolder, file)
-    ))
+  await convertInputToPictures({
+    inputFile: argv.input,
+    tempFolder: argv.temporaryFolder,
+    framesPerStrip: argv.framesPerStrip,
+    selectedFrameRate: argv.frameRate,
+    realFrameRate: videoStreamFrameRate.value,
+    fileFormat: argv.imageFileFormat,
+    horizontalResolution: argv.horizontalResolution
+  })
 
-  fs.writeFileSync(
-    path.resolve(tempFolder, 'project.json'),
-    JSON.stringify(JSON.parse(output), null, 2)
-  )
+  const hashFiles = await hashFilesInFolder({ folder: argv.temporaryFolder })
+  const costumes = convertToCostumes(hashFiles.filter(file => file.extension.endsWith(argv.imageFileFormat)));
+  const audioClips = convertToAudioSnippets(hashFiles.filter(file => file.extension.endsWith('mp3')));
+  const frames = argv.framesPerStrip * costumes.length
+  const soundInterval = argv.audioInterval * outputFrameRate
+
+  let output = JSON.stringify(templateProject)
+    .replaceAll(ProjectReplacementString.VIDEO, JSON.stringify(costumes))
+    .replaceAll(ProjectReplacementString.AUDIO, JSON.stringify(audioClips))
+    .replaceAll(ProjectReplacementString.FRAMES, frames.toString())
+    .replaceAll(ProjectReplacementString.SCALE, ((SCRATCH_WIDTH / argv.horizontalResolution) * 200).toString())
+    .replaceAll(ProjectReplacementString.STRIP, argv.framesPerStrip.toString())
+    .replaceAll(ProjectReplacementString.AUDIO_INTERVAL, soundInterval.toString())
+  
+  output = output.replaceAll(ProjectReplacementString.FRAMERATE, outputFrameRate.toString())
 
   const zip = new AdmZip();
-  fs.readdirSync(tempFolder)
-    .forEach(file => zip.addLocalFile(path.resolve(tempFolder, file)))
-  
-  zip.writeZip(outputFile);
+  fs.readdirSync(argv.temporaryFolder)
+    .forEach(file => zip.addLocalFile(path.resolve(argv.temporaryFolder, file)))
+
+  zip.addLocalFile(path.join(__dirname, templateBackground), undefined, 'cd21514d0531fdffb22204e0ec5ed84a.svg')
+  zip.addFile('project.json', Buffer.from(output))
+
+  zip.writeZip(argv.output);
 })()

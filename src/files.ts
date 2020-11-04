@@ -32,7 +32,7 @@ const hashFilesInFolder = async ({ folder }: { folder: string }): Promise<Rename
   const files = readdirSync(folder)
 
   for (const file of files) {
-    const extension = path.extname(file);    
+    const extension = path.extname(file).replace('.', '');
     const number = parseInt(file.replace(extension, ''), 10);
 
     const hash = await computeMD5Checksum({
@@ -41,7 +41,7 @@ const hashFilesInFolder = async ({ folder }: { folder: string }): Promise<Rename
 
     renameSync(
       path.resolve(folder, file),
-      path.resolve(folder, hash + extension)
+      path.resolve(folder, hash + '.' + extension)
     )
 
     renamedFiles.push({

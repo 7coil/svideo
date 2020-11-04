@@ -1,17 +1,11 @@
 import { RenamedFile } from './files';
 
-enum DataFormat {
-  SVG = 'svg',
-  PNG = 'png',
-  MP3 = 'mp3',
-}
-
 interface Costume {
   assetId: string,
   name: string,
   bitmapResolution: number,
   md5ext: string,
-  dataFormat: DataFormat,
+  dataFormat: string,
   rotationCenterX: number,
   rotationCenterY: number,
 }
@@ -19,7 +13,7 @@ interface Costume {
 interface Audio {
   assetId: string;
   name: string;
-  dataFormat: DataFormat,
+  dataFormat: string,
   rate: number;
   sampleCount: number;
   md5ext: string;
@@ -36,23 +30,23 @@ interface Audio {
 
 const convertToCostumes = (files: RenamedFile[]): Costume[] => files.map(file => ({
   assetId: file.hash,
-  name: file.number.toString() + '.' + DataFormat.PNG,
+  name: file.number.toString() + '.' + file.extension,
   bitmapResolution: 2,
-  md5ext: file.hash + '.' + DataFormat.PNG,
-  dataFormat: DataFormat.PNG,
+  md5ext: file.hash + '.' + file.extension,
+  dataFormat: file.extension,
   rotationCenterX: 7920,
   rotationCenterY: 135,
 }))
 
 const convertToAudioSnippets = (files: RenamedFile[]): Audio[] => files.map(file => ({
   assetId: file.hash,
-  name: file.number.toString() + '.' + DataFormat.MP3,
-  md5ext: file.hash + '.' + DataFormat.MP3,
-  dataFormat: DataFormat.MP3,
+  name: file.number.toString() + '.' + file.extension,
+  md5ext: file.hash + '.' + file.extension,
+  dataFormat: file.extension,
   rate: 48000,
   sampleCount: 1,
 }))
 
 export {
-  DataFormat, Costume, convertToCostumes, convertToAudioSnippets
+  Costume, convertToCostumes, convertToAudioSnippets
 }

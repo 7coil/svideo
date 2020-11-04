@@ -5,43 +5,23 @@ Convert video into MIT Scratch!
 For support, try [my discord server](https://discordapp.com/invite/wHgdmf4).
 
 ## Usage
-You may need to edit the FFMPEG commands to fit your use case.
-This is found in `ffmpeg.ts`.
-
 1. Install dependencies with `yarn`
 2. Build project with `yarn build`
-3. Run `node dist/ [video file] [output file].sb3`
+3. Run `node dist/ -i [video file] -o [output file].sb3`
 
-### Terrible Changes
-#### Frame Rate
-```ts
-const ffmpeg = spawn(ffmpegExecutable, [
-  '-i', inputFile,
-  '-vf', `fps=fps=10,scale=240:-1,tile=${stripFrameCount}x1`,
-  path.resolve(tempFolder, '%03d.png')
-], {
-  stdio: 'inherit'
-})
 ```
-
-Remove `fps=fps=10,` for the original framerate.
-Change the number for a different framerate.
-This makes FFMPEG run much faster.
-
-Please edit the framerate within the Scratch file after importing.
-
-#### Audio Splitting
-```ts
-const ffmpeg = spawn(ffmpegExecutable, [
-  '-i', inputFile,
-  '-f', 'segment',
-  '-segment_time', '60',
-  path.resolve(tempFolder, '%03d.mp3')
-], {
-  stdio: 'inherit'
-})
+Options:
+      --help                  Show help                                                                                           [boolean]
+      --version               Show version number                                                                                 [boolean]
+  -n, --framesPerStrip        The number of frames in a strip                                                        [number] [default: 30]
+  -i, --input                 Path to the video file                                                                    [string] [required]
+  -o, --output                Filename and path to the output file. End in `.sb3`                                       [string] [required]
+  -h, --horizontalResolution  The horizontal resolution of each frame                                               [number] [default: 480]
+  -t, --temporaryFolder       Path to a temporary folder for use while building the project                     [string] [default: "temp/"]
+  -f, --imageFileFormat       The file format of frames in the output                              [choices: "png", "jpg"] [default: "png"]
+  -r, --frameRate             The framerate of the output                                                                          [number]
+  -s, --audioInterval         The number of seconds between cuts in the audio                                   [number] [default: No cuts]
 ```
-You need to reimplement the audio playing functionality in Scratch to accept multiple files.
 
 ## Preview
 ### The Computer Chronicles - Mainframes to Minis to Micros (1983)
