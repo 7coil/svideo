@@ -9,6 +9,9 @@ For support, try [my discord server](https://discordapp.com/invite/wHgdmf4).
 2. Build project with `yarn build`
 3. Run `node dist/ -i [video file] -o [output file].sb3`
 
+When uploading to Scratch, you may wish to use a Chromium based web browser, such as NAVER Whale or Microsoft Edge.
+Keep file uploads less than 200 megabytes.
+
 ```
 Options:
       --help                  Show help                                                                                           [boolean]
