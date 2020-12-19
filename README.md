@@ -14,16 +14,16 @@ Keep file uploads less than 200 megabytes.
 
 ```
 Options:
-      --help                  Show help                                                                                           [boolean]
-      --version               Show version number                                                                                 [boolean]
-  -n, --framesPerStrip        The number of frames in a strip                                                        [number] [default: 30]
-  -i, --input                 Path to the video file                                                                    [string] [required]
-  -o, --output                Filename and path to the output file. End in `.sb3`                                       [string] [required]
-  -h, --horizontalResolution  The horizontal resolution of each frame                                               [number] [default: 480]
-  -t, --temporaryFolder       Path to a temporary folder for use while building the project                     [string] [default: "temp/"]
-  -f, --imageFileFormat       The file format of frames in the output                              [choices: "png", "jpg"] [default: "png"]
-  -r, --frameRate             The framerate of the output                                                                          [number]
-  -s, --audioInterval         The number of seconds between cuts in the audio                                   [number] [default: No cuts]
+      --help                  Show help                                                                                              [boolean]
+      --version               Show version number                                                                                    [boolean]
+  -n, --framesPerStrip        The number of frames in a strip                                                           [number] [default: 30]
+  -i, --input                 Path to the video file                                                                       [string] [required]
+  -o, --output                Filename and path to the output file. End in `.sb3`                                          [string] [required]
+  -w, --horizontalResolution  The width of each frame                                         [number] [choices: 480, 240, 120] [default: 480]
+  -t, --temporaryFolder       Path to a temporary folder for use while building the project                        [string] [default: "temp/"]
+  -f, --imageFileFormat       The file format of frames in the output                                 [choices: "png", "jpg"] [default: "png"]
+  -r, --frameRate             The framerate of the output                                                                             [number]
+  -s, --audioInterval         The number of seconds between cuts in the audio                                      [number] [default: No cuts]
 ```
 
 ## Preview
