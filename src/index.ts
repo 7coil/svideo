@@ -1,4 +1,4 @@
-import AdmZip from "adm-zip";
+import archiver from "archiver";
 import "core-js/features/string/replace-all";
 import fs, { existsSync } from "fs";
 import path from "path";
@@ -180,17 +180,25 @@ if (existsSync(argv.output)) console.error("Overwriting output file!");
     outputFrameRate.toString()
   );
 
-  const zip = new AdmZip();
+  const outputStream = fs.createWriteStream(argv.output);
+  const zip = archiver('zip', {
+    store: true
+  });
+  zip.pipe(outputStream);
+
   fs.readdirSync(argv.temporaryFolder).forEach((file) =>
-    zip.addLocalFile(path.resolve(argv.temporaryFolder, file))
+    zip.file(path.resolve(argv.temporaryFolder, file), {
+      name: file
+    })
   );
 
-  zip.addLocalFile(
+  zip.file(
     path.join(__dirname, templateBackground),
-    undefined,
-    "8f403c1439e63a0e3049e8ac4442b451.svg"
+    {
+      name: "8f403c1439e63a0e3049e8ac4442b451.svg"
+    }
   );
-  zip.addFile("project.json", Buffer.from(output));
+  zip.append(Buffer.from(output), { name: "project.json" });
 
-  zip.writeZip(argv.output);
+  zip.finalize();
 })();
