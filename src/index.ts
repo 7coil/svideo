@@ -78,6 +78,11 @@ const { argv } = yargs(process.argv.slice(2))
       alias: "r",
       description: "The framerate of the output",
     },
+    quality: {
+      type: "number",
+      alias: "q",
+      description: "The quality of JPEG output, from 2 (best) to 31 (worst)",
+    },
     audioInterval: {
       type: "number",
       alias: "s",
@@ -138,6 +143,7 @@ if (existsSync(argv.output)) console.error("Overwriting output file!");
     realFrameRate: videoStreamFrameRate.value,
     fileFormat: argv.imageFileFormat,
     horizontalResolution: argv.horizontalResolution,
+    quality: argv.quality,
   });
 
   const hashFiles = await hashFilesInFolder({ folder: argv.temporaryFolder });

@@ -19,6 +19,7 @@ const convertInputToPictures = ({
   selectedFrameRate,
   realFrameRate,
   horizontalResolution = 480,
+  quality,
 }: {
   inputFile: string,
   fileFormat: string,
@@ -27,6 +28,7 @@ const convertInputToPictures = ({
   selectedFrameRate?: number,
   realFrameRate: number,
   horizontalResolution: number,
+  quality?: number,
 }) => new Promise((resolve, reject) => {
   const args = [];
   let filters = [];
@@ -41,6 +43,10 @@ const convertInputToPictures = ({
   filters.push(`scale=${horizontalResolution}:-1`)
   filters.push(`tile=${framesPerStrip}x1`)
   args.push('-vf', filters.join(','))
+
+  if (quality => 2 && quality <= 31 && typeof quality === 'number') {
+    args.push('-q:v', quality.toString(10))
+  }
 
   // Add output file
   args.push(path.resolve(tempFolder, '%03d.' + fileFormat))
