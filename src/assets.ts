@@ -30,7 +30,7 @@ interface Audio {
 
 const convertToCostumes = (files: RenamedFile[]): Costume[] => files.map(file => ({
   assetId: file.hash,
-  name: file.number.toString() + '.' + file.extension,
+  name: file.number + '.' + file.extension,
   bitmapResolution: 2,
   md5ext: file.hash + '.' + file.extension,
   dataFormat: file.extension,

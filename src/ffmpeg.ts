@@ -44,12 +44,12 @@ const convertInputToPictures = ({
   filters.push(`tile=${framesPerStrip}x1`)
   args.push('-vf', filters.join(','))
 
-  if (quality => 2 && quality <= 31 && typeof quality === 'number') {
+  if (typeof quality === 'number' && quality >= 2 && quality <= 31) {
     args.push('-q:v', quality.toString(10))
   }
 
   // Add output file
-  args.push(path.resolve(tempFolder, '%03d.' + fileFormat))
+  args.push(path.resolve(tempFolder, '%05d.' + fileFormat))
   
   const ffmpeg = spawn(ffmpegExecutable, args, { stdio: 'inherit' })
   

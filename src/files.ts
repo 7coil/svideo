@@ -22,7 +22,7 @@ const computeMD5Checksum = ({ file }: { file: string }): Promise<string> => new 
 interface RenamedFile {
   file: string;
   hash: string;
-  number: number;
+  number: string;
   extension: string;
 }
 
@@ -33,7 +33,7 @@ const hashFilesInFolder = async ({ folder }: { folder: string }): Promise<Rename
 
   for (const file of files) {
     const extension = path.extname(file).replace('.', '');
-    const number = parseInt(file.replace(extension, ''), 10);
+    const number = file.replace(extension, '').replace('.', '');
 
     const hash = await computeMD5Checksum({
       file: path.resolve(folder, file)

@@ -192,6 +192,15 @@ if (existsSync(argv.output)) console.error("Overwriting output file!");
   });
   zip.pipe(outputStream);
 
+  zip.on('error', (e) => {
+    console.log(e);
+    process.exit(1);
+  });
+
+  zip.on('warning', (e) => {
+    console.log(e);
+  });
+
   fs.readdirSync(argv.temporaryFolder).forEach((file) =>
     zip.file(path.resolve(argv.temporaryFolder, file), {
       name: file
