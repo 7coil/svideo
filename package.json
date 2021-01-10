@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "license": "MIT",
   "dependencies": {
+    "archiver": "^5.2.0",
     "ffmpeg-ffprobe-static": "^4.3.1-rc.2",
     "ffmpeg-static": "^4.2.7",
     "ffprobe": "^1.1.2",
@@ -15,6 +16,7 @@
     "build": "webpack"
   },
   "devDependencies": {
+    "@types/archiver": "^5.1.0",
     "@types/ffmpeg-static": "^3.0.0",
     "@types/ffprobe": "^1.1.0",
     "@types/ffprobe-static": "^2.0.0",
