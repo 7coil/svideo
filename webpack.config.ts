@@ -1,8 +1,7 @@
-const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
-const CopyPlugin = require("copy-webpack-plugin");
-const path = require("path");
-
-const ffprobe = require("ffmpeg-ffprobe-static");
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+import CopyPlugin from 'copy-webpack-plugin';
+import ffprobe from 'ffmpeg-ffprobe-static';
+import { basename, resolve } from 'path';
 
 module.exports = {
   entry: "./src/index.ts",
@@ -25,7 +24,7 @@ module.exports = {
   target: "node",
   output: {
     filename: "index.js",
-    path: path.resolve(__dirname, "dist"),
+    path: resolve(__dirname, "dist"),
   },
   plugins: [
     new ForkTsCheckerWebpackPlugin(),
@@ -33,7 +32,7 @@ module.exports = {
       patterns: [
         {
           from: ffprobe.ffmpegPath,
-          to: path.basename(ffprobe.ffmpegPath),
+          to: basename(ffprobe.ffmpegPath),
         },
         {
           from: "./src/template.json",
