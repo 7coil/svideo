@@ -39,7 +39,9 @@ class Video {
     this.framerate = Video.parseFrameRate(videoStream.r_frame_rate);
     this.x = videoStream.width;
     this.y = videoStream.height;
-    this.length = videoStream.duration || Video.parseDuration((videoStream.tags as any).DURATION);
+    this.length =
+      videoStream.duration ||
+      Video.parseDuration((videoStream.tags as any).DURATION);
     this.audio = !!audioStream;
   }
 

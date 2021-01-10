@@ -13,7 +13,8 @@
     "yargs": "^16.2.0"
   },
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "@types/archiver": "^5.1.0",
@@ -24,6 +25,7 @@
     "@types/yargs": "^15.0.12",
     "copy-webpack-plugin": "^7.0.0",
     "fork-ts-checker-webpack-plugin": "^6.0.8",
+    "prettier": "^2.2.1",
     "raw-loader": "^4.0.2",
     "ts-loader": "^8.0.14",
     "typescript": "^4.1.3",

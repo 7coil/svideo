@@ -1,13 +1,13 @@
 export enum AppState {
   READY = "ready",
   PROCESSING = "processing",
-  FINISHED = "finished"
+  FINISHED = "finished",
 }
 export enum ImageFileFormats {
   JPEG = "jpg",
-  PNG = "png"
+  PNG = "png",
 }
 export enum Container {
   NONE = "",
-  SVG = "svg"
+  SVG = "svg",
 }

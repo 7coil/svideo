@@ -175,7 +175,7 @@ class App {
     const zip = archiver("zip", {
       store: true,
     });
-    
+
     zip.directory(this.tempFolder, false);
     zip.pipe(outputStream);
     zip.finalize();

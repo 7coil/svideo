@@ -1,6 +1,5 @@
-import { copyFileSync, readFileSync, writeFileSync } from 'fs';
-import { resolve } from 'path';
-import { Container, ImageFileFormats } from './enum';
+import { copyFileSync, readFileSync, writeFileSync } from "fs";
+import { resolve } from "path";
 import { RenamedFile } from "./FileRenamer";
 
 enum ProjectBuilderReplacement {
@@ -15,55 +14,61 @@ enum ProjectBuilderReplacement {
 }
 
 class ProjectBuilder {
-  private projectString: string = readFileSync(resolve(__dirname, 'template.json'), { encoding: 'utf-8' });
-  
+  private projectString: string = readFileSync(
+    resolve(__dirname, "template.json"),
+    { encoding: "utf-8" }
+  );
+
   injectField(field: ProjectBuilderReplacement, value: any): ProjectBuilder {
     const newValue = String(value);
-    const replacementField = `[false, 21, ${field}]`
+    const replacementField = `[false, 21, ${field}]`;
 
-    this.projectString = this.projectString.replace(replacementField, newValue)
+    this.projectString = this.projectString.replace(replacementField, newValue);
 
-    return this
+    return this;
   }
 
   injectFiles(files: RenamedFile[], framesPerSheet: number) {
-    const costumes = files.filter(file => file.extension !== 'mp3')
-      .map(file => ({
+    const costumes = files
+      .filter((file) => file.extension !== "mp3")
+      .map((file) => ({
         assetId: file.hash,
         name: file.number,
         bitmapResolution: 2,
-        md5ext: file.hash + '.' + file.extension,
+        md5ext: file.hash + "." + file.extension,
         dataFormat: file.extension,
         rotationCenterX: 0,
         rotationCenterY: 0,
-      }))
+      }));
 
-    const audio = files.filter(file => file.extension === 'mp3')
-      .map(file => ({
+    const audio = files
+      .filter((file) => file.extension === "mp3")
+      .map((file) => ({
         assetId: file.hash,
         name: file.number,
-        md5ext: file.hash + '.' + file.extension,
+        md5ext: file.hash + "." + file.extension,
         dataFormat: file.extension,
         rate: 48000,
         sampleCount: 1,
-      }))
+      }));
 
     this.injectField(ProjectBuilderReplacement.AUDIO, JSON.stringify(audio))
       .injectField(ProjectBuilderReplacement.PICTURES, JSON.stringify(costumes))
-      .injectField(ProjectBuilderReplacement.TOTAL, costumes.length * framesPerSheet)
-    
+      .injectField(
+        ProjectBuilderReplacement.TOTAL,
+        costumes.length * framesPerSheet
+      );
+
     return this;
   }
-  
+
   write(folder: string) {
-    writeFileSync(resolve(folder, 'project.json'), this.projectString)
+    writeFileSync(resolve(folder, "project.json"), this.projectString);
     copyFileSync(
-      resolve(__dirname, 'background.svg'),
-      resolve(folder, 'cd21514d0531fdffb22204e0ec5ed84a.svg')
-    )
+      resolve(__dirname, "background.svg"),
+      resolve(folder, "cd21514d0531fdffb22204e0ec5ed84a.svg")
+    );
   }
 }
 
-export {
-  ProjectBuilder, ProjectBuilderReplacement
-}
+export { ProjectBuilder, ProjectBuilderReplacement };

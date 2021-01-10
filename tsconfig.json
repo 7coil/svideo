@@ -8,8 +8,6 @@
     "jsx": "react",
     "allowJs": true,
     "esModuleInterop": true,
-    "typeRoots": [
-      "./node_modules/@types", "./types"
-    ]
+    "typeRoots": ["./node_modules/@types", "./types"]
   }
 }

@@ -37,25 +37,25 @@ class FileRenamer {
 
     for (const file of files) {
       const parsed = path.parse(file);
-      const hash = await this.computeHash(path.resolve(input.folder, parsed.base));
+      const hash = await this.computeHash(
+        path.resolve(input.folder, parsed.base)
+      );
 
       renameSync(
         path.resolve(input.folder, parsed.base),
         path.resolve(input.folder, hash + parsed.ext)
-      )
+      );
 
       renamedFiles.push({
         file,
         hash,
         number: parsed.name,
-        extension: parsed.ext.replace('.', '')
-      })
+        extension: parsed.ext.replace(".", ""),
+      });
     }
 
-    return renamedFiles
+    return renamedFiles;
   }
 }
 
-export {
-  FileRenamer, RenamedFile
-}
+export { FileRenamer, RenamedFile };

@@ -1,3 +1,3 @@
 import { App } from "./App";
 
-App.main(process.argv)
+App.main(process.argv);
