@@ -1,37 +1,35 @@
 {
   "name": "scratchvideo",
-  "version": "6.0.0",
+  "version": "7.0.0",
+  "private": true,
   "main": "dist/index.js",
   "license": "MIT",
   "dependencies": {
-    "archiver": "^5.1.0",
-    "core-js": "^3.8.1",
+    "archiver": "^5.2.0",
+    "ffmpeg-ffprobe-static": "^4.3.1-rc.2",
     "ffmpeg-static": "^4.2.7",
     "ffprobe": "^1.1.2",
     "ffprobe-static": "^3.0.0",
-    "parcel": "^2.0.0-beta.1",
-    "regenerator-runtime": "^0.13.7",
     "yargs": "^16.2.0"
   },
-  "targets": {
-    "main": {
-      "context": "node",
-      "distDir": "./dist/"
-    }
-  },
   "scripts": {
-    "build": "parcel build --target main src/index.ts"
+    "build": "webpack",
+    "format": "prettier --write ."
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.12.11",
-    "@babel/preset-typescript": "^7.12.7",
-    "@types/adm-zip": "^0.4.33",
     "@types/archiver": "^5.1.0",
     "@types/ffmpeg-static": "^3.0.0",
     "@types/ffprobe": "^1.1.0",
     "@types/ffprobe-static": "^2.0.0",
     "@types/node": "^14.14.14",
     "@types/yargs": "^15.0.12",
-    "babel-plugin-transform-class-properties": "^6.24.1"
+    "copy-webpack-plugin": "^7.0.0",
+    "fork-ts-checker-webpack-plugin": "^6.0.8",
+    "prettier": "^2.2.1",
+    "raw-loader": "^4.0.2",
+    "ts-loader": "^8.0.14",
+    "typescript": "^4.1.3",
+    "webpack": "^5.12.1",
+    "webpack-cli": "^4.3.1"
   }
 }
