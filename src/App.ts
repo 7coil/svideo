@@ -16,7 +16,7 @@ class App {
   state: AppState = AppState.READY;
   private video: Video;
   private width: number = 240;
-  private framerate: number | null = null;
+  private framerate: number = null;
   private format: ImageFileFormats = ImageFileFormats.JPEG;
   private container: Container = Container.NONE;
   private compressionLevel: number = 4;
@@ -28,6 +28,17 @@ class App {
     return Math.round(this.width / ASPECT_RATIO);
   }
 
+  toString() {
+    return (`Converting ${this.video.filename} to ${this.outputFile}:
+    width     : ${this.width}
+    height    : ${this.height}
+    framerate : ${this.framerate ? this.framerate : `None - Using video framerate of ${this.video.framerate.value}`}
+    format    : ${this.format}
+    grid size : ${this.rows} x ${this.columns}
+    compress  : ${this.compressionLevel}
+    `);
+  }
+
   setOutputFile(file: string) {
     this.outputFile = file;
   }
@@ -36,7 +47,6 @@ class App {
     const video = new Video(file);
     await video.init();
     this.video = video;
-    this.setFrameRate();
   }
 
   setTempFolder(folder: string = "temp/") {
@@ -185,13 +195,13 @@ class App {
     const { argv } = yargs(process.argv.slice(2)).options({
       rows: {
         type: "number",
-        alias: "r",
+        alias: "row",
         default: 30,
         description: "The number of rows to place in the grid",
       },
       columns: {
         type: "number",
-        alias: "c",
+        alias: "col",
         default: 20,
         description: "The number of columns to place in the grid",
       },
@@ -253,6 +263,7 @@ class App {
     if (argv.frameRate) app.setFrameRate(argv.frameRate);
     if (argv.compressionLevel) app.setCompressionLevel(argv.compressionLevel);
 
+    console.log(app.toString())
     await app.convert();
   }
 }
