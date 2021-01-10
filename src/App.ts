@@ -1,7 +1,7 @@
 import archiver from "archiver";
 import fs, { createWriteStream } from "fs";
 import path from "path";
-import yargs from "yargs";
+import yargs, { wrap } from "yargs";
 import { AppState, Container, ImageFileFormats } from "./enum";
 import { FFmpeg } from "./FFmpeg";
 import { FileRenamer } from "./FileRenamer";
@@ -24,23 +24,32 @@ class App {
   private columns: number = 10;
   private tempFolder: string;
   private outputFile: string;
+  private subtitles: string;
   private get height(): number {
     return Math.round(this.width / ASPECT_RATIO);
   }
 
   toString() {
-    return (`Converting ${this.video.filename} to ${this.outputFile}:
+    return `Converting ${this.video.filename} to ${this.outputFile}:
     width     : ${this.width}
     height    : ${this.height}
-    framerate : ${this.framerate ? this.framerate : `None - Using video framerate of ${this.video.framerate.value}`}
+    framerate : ${
+      this.framerate
+        ? this.framerate
+        : `None - Using video framerate of ${this.video.framerate.value}`
+    }
     format    : ${this.format}
     grid size : ${this.rows} x ${this.columns}
     compress  : ${this.compressionLevel}
-    `);
+    `;
   }
 
   setOutputFile(file: string) {
     this.outputFile = file;
+  }
+
+  setSubtitlesFile(file: string) {
+    this.subtitles = file;
   }
 
   async setFile(file: string) {
@@ -154,6 +163,7 @@ class App {
       rows: this.rows,
       columns: this.columns,
       tempFolder: this.tempFolder,
+      subtitles: this.subtitles,
     });
 
     await FFmpeg.convertToAudio({
@@ -192,65 +202,73 @@ class App {
   }
 
   static async main(args: string[]) {
-    const { argv } = yargs(process.argv.slice(2)).options({
-      rows: {
-        type: "number",
-        alias: "row",
-        default: 30,
-        description: "The number of rows to place in the grid",
-      },
-      columns: {
-        type: "number",
-        alias: "col",
-        default: 20,
-        description: "The number of columns to place in the grid",
-      },
-      input: {
-        type: "string",
-        alias: "i",
-        demandOption: true,
-        normalize: true,
-        description: "Input file to convert",
-      },
-      output: {
-        type: "string",
-        alias: "o",
-        demandOption: true,
-        normalize: true,
-        description: "Destination file for the Scratch `.sb3` archive",
-      },
-      width: {
-        type: "number",
-        alias: "w",
-        default: 480,
-        description: "The width of each frame",
-      },
-      temporaryFolder: {
-        type: "string",
-        alias: "t",
-        default: "temp/",
-        normalize: true,
-        description:
-          "Path to a temporary folder for use while building the project",
-      },
-      imageFileFormat: {
-        choices: Object.values(ImageFileFormats),
-        alias: "f",
-        default: "jpg",
-        description: "The file format of frames in the output",
-      },
-      frameRate: {
-        type: "number",
-        alias: "r",
-        description: "The framerate of the output",
-      },
-      compressionLevel: {
-        type: "number",
-        alias: "q",
-        description:
-          "The compression level of the image. 1-100 for PNG and 1-32 for JPEG",
-      },
-    });
+    const { argv } = yargs(process.argv.slice(2))
+      .options({
+        rows: {
+          type: "number",
+          alias: "row",
+          default: 30,
+          description: "The number of rows to place in the grid",
+        },
+        columns: {
+          type: "number",
+          alias: "col",
+          default: 20,
+          description: "The number of columns to place in the grid",
+        },
+        input: {
+          type: "string",
+          alias: "i",
+          demandOption: true,
+          normalize: true,
+          description: "Input file to convert",
+        },
+        output: {
+          type: "string",
+          alias: "o",
+          demandOption: true,
+          normalize: true,
+          description: "Destination file for the Scratch `.sb3` archive",
+        },
+        width: {
+          type: "number",
+          alias: "w",
+          default: 480,
+          description: "The width of each frame",
+        },
+        temporaryFolder: {
+          type: "string",
+          alias: "t",
+          default: "temp/",
+          normalize: true,
+          description:
+            "Path to a temporary folder for use while building the project",
+        },
+        imageFileFormat: {
+          choices: Object.values(ImageFileFormats),
+          alias: "f",
+          default: "jpg",
+          description: "The file format of frames in the output",
+        },
+        frameRate: {
+          type: "number",
+          alias: "r",
+          description: "The framerate of the output",
+        },
+        compressionLevel: {
+          type: "number",
+          alias: "q",
+          description:
+            "The compression level of the image. 1-100 for PNG and 1-32 for JPEG",
+        },
+        subtitles: {
+          type: "string",
+          alias: "s",
+          normalise: true,
+          description: "Hardcode (burn) subtitles onto the video",
+        },
+      })
+      .wrap(yargs.terminalWidth());
 
     const app = new App();
     if (argv.rows) app.setRows(argv.rows);
@@ -262,8 +280,9 @@ class App {
     if (argv.imageFileFormat) app.setFormat(argv.imageFileFormat);
     if (argv.frameRate) app.setFrameRate(argv.frameRate);
     if (argv.compressionLevel) app.setCompressionLevel(argv.compressionLevel);
+    if (argv.subtitles) app.setSubtitlesFile(argv.subtitles);
 
-    console.log(app.toString())
+    console.log(app.toString());
     await app.convert();
   }
 }

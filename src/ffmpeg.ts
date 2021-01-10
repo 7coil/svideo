@@ -14,6 +14,7 @@ interface ExtractVideoInput {
   rows: number;
   columns: number;
   tempFolder: string;
+  subtitles: string;
 }
 
 interface ExtractAudioInput {
@@ -29,16 +30,17 @@ class FFmpeg {
 
       args.push("-i", input.video.filename);
 
-      // Check if the framerate has been changed
-      if (input.framerate) {
-        // If so, set the output framerate
-        filters.push("fps=fps=" + input.framerate);
-      }
+      if (input.framerate) filters.push("fps=fps=" + input.framerate);
+
       filters.push(
         `scale=${input.width}:${input.height}:force_original_aspect_ratio=decrease`
       );
       filters.push(`pad=${input.width}:${input.height}:-1:-1`);
       filters.push(`tile=${input.rows}x${input.columns}`);
+
+      if (input.subtitles)
+        filters.push(`subtitles=${input.subtitles.replace(/\.[/\\]/g, "")}`);
+        
       args.push("-vf", filters.join(","));
 
       // Add format dependant arguments
