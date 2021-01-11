@@ -1,7 +1,7 @@
 import archiver from "archiver";
 import fs, { createWriteStream } from "fs";
 import path from "path";
-import yargs, { wrap } from "yargs";
+import yargs from "yargs";
 import { AppState, Container, ImageFileFormats } from "./enum";
 import { FFmpeg } from "./FFmpeg";
 import { FileRenamer } from "./FileRenamer";
@@ -41,6 +41,10 @@ class App {
     format    : ${this.format}
     grid size : ${this.rows} x ${this.columns}
     compress  : ${this.compressionLevel}
+    input     : ${this.video.filename}
+    output    : ${this.outputFile}
+    temp      : ${this.tempFolder}
+    subtitles : ${this.subtitles || 'None'}
     `;
   }
 
@@ -59,7 +63,7 @@ class App {
   }
 
   setTempFolder(folder: string = "temp/") {
-    let loc = path.join(__dirname, folder);
+    let loc = path.resolve(folder);
     if (fs.existsSync(loc)) {
       fs.readdirSync(loc).forEach((file) =>
         fs.unlinkSync(path.resolve(loc, file))
@@ -198,11 +202,17 @@ class App {
 
     zip.directory(this.tempFolder, false);
     zip.pipe(outputStream);
-    zip.finalize();
+    await zip.finalize();
+
+    await new Promise<void>((resolve) => {
+      outputStream.on('close', () => {
+        resolve()
+      })
+    })
   }
 
   static async main(args: string[]) {
-    const { argv } = yargs(process.argv.slice(2))
+    const { argv } = yargs(args.slice(2))
       .options({
         rows: {
           type: "number",

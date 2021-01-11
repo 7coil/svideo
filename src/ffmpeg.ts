@@ -1,7 +1,8 @@
-import { Container, ImageFileFormats } from "./enum";
-import { Video } from "./Video";
-import path from "path";
 import { spawn } from "child_process";
+import path from "path";
+import { Container, ImageFileFormats } from "./enum";
+import { PlatformInformation } from "./PlatformInformation";
+import { Video } from "./Video";
 
 interface ExtractVideoInput {
   width: number;
@@ -32,15 +33,15 @@ class FFmpeg {
 
       if (input.framerate) filters.push("fps=fps=" + input.framerate);
 
+      if (input.subtitles)
+        filters.push(`subtitles=${input.subtitles.replace(/\.[/\\]/g, "")}`);
+        
       filters.push(
         `scale=${input.width}:${input.height}:force_original_aspect_ratio=decrease`
       );
       filters.push(`pad=${input.width}:${input.height}:-1:-1`);
       filters.push(`tile=${input.rows}x${input.columns}`);
 
-      if (input.subtitles)
-        filters.push(`subtitles=${input.subtitles.replace(/\.[/\\]/g, "")}`);
-        
       args.push("-vf", filters.join(","));
 
       // Add format dependant arguments
@@ -55,7 +56,11 @@ class FFmpeg {
 
       args.push(path.resolve(input.tempFolder, "%05d." + input.format));
 
-      const ffmpeg = spawn("ffmpeg.exe", args, { stdio: "inherit" });
+      const ffmpeg = spawn(
+        "ffmpeg" + PlatformInformation.getPlatformBinaryExtension(),
+        args,
+        { stdio: "inherit" }
+      );
 
       ffmpeg.on("exit", (code) => {
         if (code) {
@@ -74,7 +79,11 @@ class FFmpeg {
       args.push("-i", input.video.filename);
       args.push(path.resolve(input.tempFolder, "0.mp3"));
 
-      const ffmpeg = spawn("ffmpeg.exe", args, { stdio: "inherit" });
+      const ffmpeg = spawn(
+        "ffmpeg" + PlatformInformation.getPlatformBinaryExtension(),
+        args,
+        { stdio: "inherit" }
+      );
 
       ffmpeg.on("exit", (code) => {
         if (code) {

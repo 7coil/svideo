@@ -1,8 +1,8 @@
 {
-  "name": "scratchvideo",
+  "name": "svideo",
   "version": "7.0.0",
   "private": true,
-  "main": "dist/index.js",
+  "main": "./dist/index.js",
   "license": "MIT",
   "dependencies": {
     "archiver": "^5.2.0",
@@ -13,7 +13,9 @@
     "yargs": "^16.2.0"
   },
   "scripts": {
-    "build": "webpack",
+    "build": "npm-run-all --sequential compile copy-files",
+    "compile": "tsc",
+    "copy-files": "copyfiles -f src/background.svg src/template.json dist/",
     "format": "prettier --write ."
   },
   "devDependencies": {
@@ -23,16 +25,17 @@
     "@types/ffprobe": "^1.1.0",
     "@types/ffprobe-static": "^2.0.0",
     "@types/node": "^14.14.14",
-    "@types/webpack": "^4.41.25",
     "@types/yargs": "^15.0.12",
-    "copy-webpack-plugin": "^7.0.0",
-    "fork-ts-checker-webpack-plugin": "^6.0.8",
+    "copyfiles": "^2.4.1",
+    "npm-run-all": "^4.1.5",
     "prettier": "^2.2.1",
     "raw-loader": "^4.0.2",
     "ts-loader": "^8.0.14",
+    "ts-loader-decleration": "^0.10.4",
     "ts-node": "^9.1.1",
-    "typescript": "^4.1.3",
-    "webpack": "^5.12.1",
-    "webpack-cli": "^4.3.1"
+    "typescript": "^4.1.3"
+  },
+  "bin": {
+    "svideo": "./dist/cli.js"
   }
 }

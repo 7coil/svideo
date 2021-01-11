@@ -1,4 +1,5 @@
 import ffprobe from "ffprobe";
+import { PlatformInformation } from "./PlatformInformation";
 
 const DURATION_REGEX = /(\d+):(\d+):(\d+\.\d+)/;
 
@@ -22,7 +23,7 @@ class Video {
 
   async init(): Promise<void> {
     const data = await ffprobe(this.filename, {
-      path: "ffprobe.exe",
+      path: "ffprobe" + PlatformInformation.getPlatformBinaryExtension(),
     });
 
     const videoStream = data.streams.find(

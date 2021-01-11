@@ -1,3 +1,6 @@
 import { App } from "./App";
 
-App.main(process.argv);
+export default App;
+export {
+  App
+}
