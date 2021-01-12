@@ -3,8 +3,10 @@
 Convert video into MIT Scratch!
 
 ## Using
-`npx 7coil/svideo`
-<!-- `npx svideo --help` -->
+```
+npm i -g 7coil/svideo
+svideo -i input.mp4 -o output.sb3
+```
 
 ```
 Options:
