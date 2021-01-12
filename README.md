@@ -3,8 +3,8 @@
 Convert video into MIT Scratch!
 
 ## Using
-
-`npx svideo --help`
+`npx 7coil/svideo`
+<!-- `npx svideo --help` -->
 
 ```
 Options:
@@ -25,8 +25,8 @@ Options:
 
 ### Embedding
 
-- yarn: `yarn add svideo`
-- npm: `npm i --save svideo`
+- yarn: `yarn add 7coil/svideo`
+- npm: `npm i --save 7coil/svideo`
 
 ```js
 // Import statements
