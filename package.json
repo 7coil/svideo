@@ -34,5 +34,13 @@
   },
   "bin": {
     "svideo": "./dist/cli.js"
+  },
+  "bugs": {
+    "url": "https://github.com/7coil/svideo/issues",
+    "email": "github@leondrolio.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:7coil/svideo.git"
   }
 }
