@@ -1,12 +1,29 @@
-# svideo for Scratch
+# SVideo for Scratch
 
-Convert video into MIT Scratch!
+Convert your videos into an animated Scratch project!
 
-## Using
+- Uses FFmpeg to convert into frames
+    - Hardcode subtitles
+    - Adjustable resolution
+- Ability to split audio into chunks
+
+## Examples
+[이달의소녀탐구 #1 (LOONA TV #1)](https://scratch.mit.edu/projects/472096033/)  
+![A gif of the above video](.github/RNzkFJm9r4.gif)
+
+## Installation
+
+```bash
+npm i -g svideo
 ```
-npm i -g 7coil/svideo
+
+### Command Line Interface
+
+```bash
 svideo -i input.mp4 -o output.sb3
 ```
+
+#### Advanced Options
 
 ```
 Options:
@@ -25,17 +42,17 @@ Options:
   -s, --subtitles         Hardcode (burn) subtitles onto the video                                                         [string]
 ```
 
-### Embedding
+### API
 
 - yarn: `yarn add 7coil/svideo`
 - npm: `npm i --save 7coil/svideo`
 
 ```js
-// Import statements
+// ES6 Import Statements
 import svideo from "svideo";
 
-// Whatever this is
-const svideo = require("svideo");
+// Not ES6 Require Statement
+// const svideo = require("svideo");
 
 // Create a new SVideo Application
 const app = new svideo.App();
