@@ -31,18 +31,18 @@ class App {
   }
 
   toString() {
-    return `Converting ${this.video.filename} to ${this.outputFile}:
+    return `Converting ${this.video?.filename} to ${this.outputFile}:
     width     : ${this.width}
     height    : ${this.height}
     framerate : ${
       this.framerate
         ? this.framerate
-        : `None - Using video framerate of ${this.video.framerate.value}`
+        : `None - Using video framerate of ${this.video?.framerate.value}`
     }
     format            : ${this.format}
     grid size         : ${this.rows} x ${this.columns}
     compression level : ${this.compressionLevel}
-    input video       : ${this.video.filename}
+    input video       : ${this.video?.filename}
     output project    : ${this.outputFile}
     temp folder       : ${this.tempFolder}
     subtitles         : ${this.subtitles || "None"}

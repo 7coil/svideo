@@ -1,0 +1,10 @@
+test/
+temp/
+.parcel-cache/
+node_modules/
+*.sb3
+*.mp4
+*.mkv
+*.webm
+*.vtt
+*.sfk

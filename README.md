@@ -4,24 +4,54 @@ Convert video into MIT Scratch!
 
 ## Using
 
-If cloning from GitHub, build, then use `node ./dist/cli.js` to access the command line interface.
-You (should) be able to also use `npm i -g 7coil/svideo` and then use `svideo` to access the CLI as well (untested).
+`npx svideo --help`
+
+```
+Options:
+      --help              Show help                                                                                       [boolean]
+      --version           Show version number                                                                             [boolean]
+      --rows, --row       The number of rows to place in the grid                                            [number] [default: 30]
+      --columns, --col    The number of columns to place in the grid                                         [number] [default: 20]
+  -i, --input             Input file to convert                                                                 [string] [required]
+  -o, --output            Destination file for the Scratch `.sb3` archive                                       [string] [required]
+  -w, --width             The width of each frame                                                           [number] [default: 480]
+  -t, --temporaryFolder   Path to a temporary folder for use while building the project                 [string] [default: "temp/"]
+  -f, --imageFileFormat   The file format of frames in the output                          [choices: "jpg", "png"] [default: "jpg"]
+  -r, --frameRate         The framerate of the output                                                                      [number]
+  -q, --compressionLevel  The compression level of the image. 1-100 for PNG and 1-32 for JPEG                              [number]
+  -a, --audioInterval     The number of seconds between cuts in the audio                               [number] [default: No cuts]
+  -s, --subtitles         Hardcode (burn) subtitles onto the video                                                         [string]
+```
 
 ### Embedding
 
-(Not fully working 😢)
-`npm i -g 7coil/svideo`
+- yarn: `yarn add svideo`
+- npm: `npm i --save svideo`
 
-```ts
-import { App } from "svideo";
+```js
+// Import statements
+import svideo from "svideo";
+
+// Whatever this is
+const svideo = require("svideo");
+
+// Create a new SVideo Application
+const app = new svideo.App();
 
 (async () => {
-  new App();
-
+  // Set the input file
   await app.setFile("wooper.mp4");
+
+  // Set the subtitles file
   app.setSubtitlesFile("wooper.en.vtt");
+
+  // Set the output file
   app.setOutputFile("wooper.sb3");
 
+  // Print information
+  console.log(app.toString());
+
+  // Convert and commit changes
   await app.convert();
 })();
 ```
