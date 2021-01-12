@@ -21,6 +21,7 @@ interface ExtractVideoInput {
 interface ExtractAudioInput {
   video: Video;
   tempFolder: string;
+  audioInterval: number;
 }
 
 class FFmpeg {
@@ -35,7 +36,7 @@ class FFmpeg {
 
       if (input.subtitles)
         filters.push(`subtitles=${input.subtitles.replace(/\.[/\\]/g, "")}`);
-        
+
       filters.push(
         `scale=${input.width}:${input.height}:force_original_aspect_ratio=decrease`
       );
@@ -74,10 +75,17 @@ class FFmpeg {
 
   static convertToAudio = (input: ExtractAudioInput) => {
     return new Promise<void>((resolve, reject) => {
-      const args = [];
+      const args: string[] = [];
 
       args.push("-i", input.video.filename);
-      args.push(path.resolve(input.tempFolder, "0.mp3"));
+
+      if (input.audioInterval) {
+        args.push("-f", "segment", "-segment_time", input.audioInterval.toString());
+        args.push("-q:a", "0", "-map", "a");
+        args.push(path.resolve(input.tempFolder, "%03d.mp3"));
+      } else {
+        args.push(path.resolve(input.tempFolder, "0.mp3"));
+      }
 
       const ffmpeg = spawn(
         "ffmpeg" + PlatformInformation.getPlatformBinaryExtension(),

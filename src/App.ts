@@ -25,6 +25,7 @@ class App {
   private tempFolder: string;
   private outputFile: string;
   private subtitles: string;
+  private audioInterval: number = 0;
   private get height(): number {
     return Math.round(this.width / ASPECT_RATIO);
   }
@@ -38,14 +39,19 @@ class App {
         ? this.framerate
         : `None - Using video framerate of ${this.video.framerate.value}`
     }
-    format    : ${this.format}
-    grid size : ${this.rows} x ${this.columns}
-    compress  : ${this.compressionLevel}
-    input     : ${this.video.filename}
-    output    : ${this.outputFile}
-    temp      : ${this.tempFolder}
-    subtitles : ${this.subtitles || 'None'}
+    format            : ${this.format}
+    grid size         : ${this.rows} x ${this.columns}
+    compression level : ${this.compressionLevel}
+    input video       : ${this.video.filename}
+    output project    : ${this.outputFile}
+    temp folder       : ${this.tempFolder}
+    subtitles         : ${this.subtitles || "None"}
+    audio interval    : ${this.audioInterval || "None"}
     `;
+  }
+
+  setAudioInterval(interval: number) {
+    this.audioInterval = interval;
   }
 
   setOutputFile(file: string) {
@@ -173,6 +179,7 @@ class App {
     await FFmpeg.convertToAudio({
       tempFolder: this.tempFolder,
       video: this.video,
+      audioInterval: this.audioInterval,
     });
 
     const renamedFiles = await FileRenamer.hashFilesInFolder({
@@ -205,10 +212,10 @@ class App {
     await zip.finalize();
 
     await new Promise<void>((resolve) => {
-      outputStream.on('close', () => {
-        resolve()
-      })
-    })
+      outputStream.on("close", () => {
+        resolve();
+      });
+    });
   }
 
   static async main(args: string[]) {
@@ -271,6 +278,13 @@ class App {
           description:
             "The compression level of the image. 1-100 for PNG and 1-32 for JPEG",
         },
+        audioInterval: {
+          type: "number",
+          alias: "a",
+          default: 0,
+          description: "The number of seconds between cuts in the audio",
+          defaultDescription: "No cuts"
+        },
         subtitles: {
           type: "string",
           alias: "s",
@@ -291,6 +305,7 @@ class App {
     if (argv.frameRate) app.setFrameRate(argv.frameRate);
     if (argv.compressionLevel) app.setCompressionLevel(argv.compressionLevel);
     if (argv.subtitles) app.setSubtitlesFile(argv.subtitles);
+    if (argv.audioInterval) app.setAudioInterval(argv.audioInterval)
 
     console.log(app.toString());
     await app.convert();

@@ -15,6 +15,7 @@
   "scripts": {
     "build": "npm-run-all --sequential compile copy-files",
     "compile": "tsc",
+    "prepare": "npm-run-all --sequential compile copy-files",
     "copy-files": "copyfiles -f src/background.svg src/template.json dist/",
     "format": "prettier --write ."
   },
