@@ -3,11 +3,12 @@
 Convert your videos into an animated Scratch project!
 
 - Uses FFmpeg to convert into frames
-    - Hardcode subtitles
-    - Adjustable resolution
+  - Hardcode subtitles
+  - Adjustable resolution
 - Ability to split audio into chunks
 
 ## Examples
+
 [이달의소녀탐구 #1 (LOONA TV #1)](https://scratch.mit.edu/projects/472096033/)  
 ![A gif of the above video](.github/RNzkFJm9r4.gif)
 
@@ -74,6 +75,68 @@ const app = new svideo.App();
   await app.convert();
 })();
 ```
+
+#### Examples
+
+<details>
+<summary>Convert correctly numbered LOONA TV episodes in the <strong>tv/</strong> folder, while hardcoding subtitles if available</summary>
+
+```mjs
+import { existsSync, readdirSync, renameSync } from "fs";
+import { resolve, parse } from "path";
+import SVideo from "../dist/index.js";
+
+const videos = readdirSync("tv")
+  .map((file) => parse(file))
+  .filter((video) => [".mp4", ".webm", ".mkv"].includes(video.ext))
+  .sort((a, b) => parseInt(a.name, 10) - parseInt(b.name, 10))
+  .map((video) => {
+    const videoPath = resolve("tv", video.base);
+    const subtitlePath = resolve("tv", video.name + ".vtt");
+    let subtitle;
+
+    if (!existsSync(videoPath)) throw new Error("Cannot find " + videoPath);
+    if (!existsSync(subtitlePath)) {
+      console.log("Cannot find " + subtitlePath);
+    } else {
+      subtitle = "tv/" + video.name + ".vtt";
+    }
+
+    return {
+      name: video.name,
+      folder: resolve("tv"),
+      video: videoPath,
+      subtitle,
+    };
+  });
+
+console.log(videos);
+
+for (const video of videos) {
+  const converter = new SVideo.App();
+
+  console.log(video);
+
+  converter.setTempFolder();
+  await converter.setFile(video.video);
+  if (video.subtitle) converter.setSubtitlesFile(video.subtitle);
+  converter.setWidth(480);
+  converter.setColumns(20);
+  converter.setRows(10);
+  converter.setOutputFile(
+    resolve(
+      video.folder,
+      `이달의소녀탐구 #${video.name} (LOONA TV #${video.name}).sb3`
+    )
+  );
+
+  console.log(converter.toString());
+
+  await converter.convert();
+}
+```
+
+</details>
 
 ## Help
 
