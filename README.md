@@ -2,6 +2,11 @@
 
 Convert your videos into an animated Scratch project!
 
+- [leondrolio.com](https://leondrolio.com)
+- [technical support on my discord server ✨](https://discordapp.com/invite/wHgdmf4).
+
+Features:
+
 - Uses FFmpeg to convert into frames
   - Hardcode subtitles
   - Adjustable resolution
@@ -9,8 +14,15 @@ Convert your videos into an animated Scratch project!
 
 ## Examples
 
-[이달의소녀탐구 #1 (LOONA TV #1)](https://scratch.mit.edu/projects/472096033/)  
+<details>
+  <summary>이달의소녀탐구 #1 (LOONA TV #1)</summary>
+
+- [YouTube](https://www.youtube.com/watch?v=MfqGn-2pW8E)
+- [Scratch Project](https://scratch.mit.edu/projects/472096033/)
+
 ![A gif of the above video](.github/RNzkFJm9r4.gif)
+
+</details>
 
 ## Installation
 
@@ -24,29 +36,35 @@ npm i -g svideo
 svideo -i input.mp4 -o output.sb3
 ```
 
-#### Advanced Options
+<details>
+  <summary>Command Line Arguments</summary>
 
 ```
 Options:
-      --help              Show help                                                                                       [boolean]
-      --version           Show version number                                                                             [boolean]
-      --rows, --row       The number of rows to place in the grid                                            [number] [default: 30]
-      --columns, --col    The number of columns to place in the grid                                         [number] [default: 20]
-  -i, --input             Input file to convert                                                                 [string] [required]
-  -o, --output            Destination file for the Scratch `.sb3` archive                                       [string] [required]
-  -w, --width             The width of each frame                                                           [number] [default: 480]
-  -t, --temporaryFolder   Path to a temporary folder for use while building the project                 [string] [default: "temp/"]
-  -f, --imageFileFormat   The file format of frames in the output                          [choices: "jpg", "png"] [default: "jpg"]
-  -r, --frameRate         The framerate of the output                                                                      [number]
-  -q, --compressionLevel  The compression level of the image. 1-100 for PNG and 1-32 for JPEG                              [number]
-  -a, --audioInterval     The number of seconds between cuts in the audio                               [number] [default: No cuts]
-  -s, --subtitles         Hardcode (burn) subtitles onto the video                                                         [string]
+    --help              Show help                                                                                       [boolean]
+    --version           Show version number                                                                             [boolean]
+    --rows, --row       The number of rows to place in the grid                                            [number] [default: 30]
+    --columns, --col    The number of columns to place in the grid                                         [number] [default: 20]
+-i, --input             Input file to convert                                                                 [string] [required]
+-o, --output            Destination file for the Scratch `.sb3` archive                                       [string] [required]
+-w, --width             The width of each frame                                                           [number] [default: 480]
+-t, --temporaryFolder   Path to a temporary folder for use while building the project                 [string] [default: "temp/"]
+-f, --imageFileFormat   The file format of frames in the output                          [choices: "jpg", "png"] [default: "jpg"]
+-r, --frameRate         The framerate of the output                                                                      [number]
+-q, --compressionLevel  The compression level of the image. 1-100 for PNG and 1-32 for JPEG                              [number]
+-a, --audioInterval     The number of seconds between cuts in the audio                               [number] [default: No cuts]
+-s, --subtitles         Hardcode (burn) subtitles onto the video                                                         [string]
 ```
+
+</details>
 
 ### API
 
-- yarn: `yarn add 7coil/svideo`
-- npm: `npm i --save 7coil/svideo`
+You can interface with svideo with the application programming interface instead if you wish.
+Comments for each method will be included at a later date. (or if someone does it before I do)
+
+- yarn: `yarn add svideo`
+- npm: `npm i --save svideo`
 
 ```js
 // ES6 Import Statements
@@ -137,10 +155,6 @@ for (const video of videos) {
 ```
 
 </details>
-
-## Help
-
-For support, try [my discord server ✨](https://discordapp.com/invite/wHgdmf4).
 
 ## Licence
 
