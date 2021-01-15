@@ -1,5 +1,6 @@
 import { spawn } from "child_process";
-import path from "path";
+import { copyFileSync, unlinkSync } from "fs";
+import path, { parse } from "path";
 import { Container, ImageFileFormats } from "./enum";
 import { PlatformInformation } from "./PlatformInformation";
 import { Video } from "./Video";
@@ -16,6 +17,7 @@ interface ExtractVideoInput {
   columns: number;
   tempFolder: string;
   subtitles: string;
+  videoFilters: string;
 }
 
 interface ExtractAudioInput {
@@ -29,17 +31,23 @@ class FFmpeg {
     return new Promise<void>((resolve, reject) => {
       const args: string[] = [];
       const filters: string[] = [];
+      let tempSubtitlesFileName: string;
 
       args.push("-i", input.video.filename);
 
+      if (input.videoFilters) filters.push(input.videoFilters);
       if (input.framerate) filters.push("fps=fps=" + input.framerate);
 
       filters.push(
         `scale=${input.width}:${input.height}:force_original_aspect_ratio=decrease`
       );
       filters.push(`pad=${input.width}:${input.height}:-1:-1`);
-      if (input.subtitles)
-        filters.push(`subtitles=${input.subtitles.replace(/\.[/\\]/g, "")}`);
+      if (input.subtitles) {
+        const parsedSubtitlesFile = parse(input.subtitles)
+        tempSubtitlesFileName = 'subtitles' + parsedSubtitlesFile.ext
+        copyFileSync(input.subtitles, path.resolve(input.tempFolder, tempSubtitlesFileName))
+        filters.push(`subtitles=${tempSubtitlesFileName}`);
+      }
       filters.push(`tile=${input.rows}x${input.columns}`);
 
       args.push("-vf", filters.join(","));
@@ -59,10 +67,12 @@ class FFmpeg {
       const ffmpeg = spawn(
         "ffmpeg" + PlatformInformation.getPlatformBinaryExtension(),
         args,
-        { stdio: "inherit" }
+        { stdio: "inherit", cwd: input.tempFolder }
       );
 
       ffmpeg.on("exit", (code) => {
+        if (tempSubtitlesFileName) unlinkSync(path.resolve(input.tempFolder, tempSubtitlesFileName));
+
         if (code) {
           reject(new Error(`FFmpeg exited with exit code ${code}`));
         } else {
@@ -94,7 +104,7 @@ class FFmpeg {
       const ffmpeg = spawn(
         "ffmpeg" + PlatformInformation.getPlatformBinaryExtension(),
         args,
-        { stdio: "inherit" }
+        { stdio: "inherit", cwd: input.tempFolder }
       );
 
       ffmpeg.on("exit", (code) => {

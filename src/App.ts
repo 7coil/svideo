@@ -26,6 +26,7 @@ class App {
   private outputFile: string;
   private subtitles: string;
   private audioInterval: number = 0;
+  private videoFilters: string;
   private get height(): number {
     return Math.round(this.width / ASPECT_RATIO);
   }
@@ -48,6 +49,10 @@ class App {
     subtitles         : ${this.subtitles || "None"}
     audio interval    : ${this.audioInterval || "None"}
     `;
+  }
+
+  setVideoFilters(vf: string) {
+    this.videoFilters = vf;
   }
 
   setAudioInterval(interval: number) {
@@ -174,6 +179,7 @@ class App {
       columns: this.columns,
       tempFolder: this.tempFolder,
       subtitles: this.subtitles,
+      videoFilters: this.videoFilters,
     });
 
     await FFmpeg.convertToAudio({
@@ -283,13 +289,19 @@ class App {
           alias: "a",
           default: 0,
           description: "The number of seconds between cuts in the audio",
-          defaultDescription: "No cuts"
+          defaultDescription: "No cuts",
         },
         subtitles: {
           type: "string",
           alias: "s",
           normalise: true,
           description: "Hardcode (burn) subtitles onto the video",
+        },
+        videoFilters: {
+          type: "string",
+          alias: "vf",
+          description:
+            "Additional video filters to pass to FFMPEG, such as crop",
         },
       })
       .wrap(yargs.terminalWidth());
@@ -305,7 +317,8 @@ class App {
     if (argv.frameRate) app.setFrameRate(argv.frameRate);
     if (argv.compressionLevel) app.setCompressionLevel(argv.compressionLevel);
     if (argv.subtitles) app.setSubtitlesFile(argv.subtitles);
-    if (argv.audioInterval) app.setAudioInterval(argv.audioInterval)
+    if (argv.audioInterval) app.setAudioInterval(argv.audioInterval);
+    if (argv.videoFilters) app.setVideoFilters(argv.videoFilters);
 
     console.log(app.toString());
     await app.convert();
