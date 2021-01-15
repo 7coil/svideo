@@ -34,13 +34,12 @@ class FFmpeg {
 
       if (input.framerate) filters.push("fps=fps=" + input.framerate);
 
-      if (input.subtitles)
-        filters.push(`subtitles=${input.subtitles.replace(/\.[/\\]/g, "")}`);
-
       filters.push(
         `scale=${input.width}:${input.height}:force_original_aspect_ratio=decrease`
       );
       filters.push(`pad=${input.width}:${input.height}:-1:-1`);
+      if (input.subtitles)
+        filters.push(`subtitles=${input.subtitles.replace(/\.[/\\]/g, "")}`);
       filters.push(`tile=${input.rows}x${input.columns}`);
 
       args.push("-vf", filters.join(","));
@@ -80,7 +79,12 @@ class FFmpeg {
       args.push("-i", input.video.filename);
 
       if (input.audioInterval) {
-        args.push("-f", "segment", "-segment_time", input.audioInterval.toString());
+        args.push(
+          "-f",
+          "segment",
+          "-segment_time",
+          input.audioInterval.toString()
+        );
         args.push("-q:a", "0", "-map", "a");
         args.push(path.resolve(input.tempFolder, "%03d.mp3"));
       } else {
