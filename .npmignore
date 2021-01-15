@@ -9,3 +9,6 @@ node_modules/
 *.vtt
 *.sfk
 yarn-error.log
+.github/
+src/
+types/
