@@ -1,4 +1,5 @@
 import ffprobe from "ffprobe";
+import path from "path";
 import { PlatformInformation } from "./PlatformInformation";
 
 const DURATION_REGEX = /(\d+):(\d+):(\d+\.\d+)/;
@@ -11,6 +12,7 @@ interface Framerate {
 
 class Video {
   filename: string;
+  path: string;
   framerate: Framerate;
   x: number;
   y: number;
@@ -18,11 +20,12 @@ class Video {
   audio: boolean = false;
 
   constructor(filename: string) {
+    this.path = path.resolve(filename);
     this.filename = filename;
   }
 
   async init(): Promise<void> {
-    const data = await ffprobe(this.filename, {
+    const data = await ffprobe(this.path, {
       path: "ffprobe" + PlatformInformation.getPlatformBinaryExtension(),
     });
 

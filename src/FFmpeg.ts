@@ -33,7 +33,7 @@ class FFmpeg {
       const filters: string[] = [];
       let tempSubtitlesFileName: string;
 
-      args.push("-i", input.video.filename);
+      args.push("-i", input.video.path);
 
       if (input.videoFilters) filters.push(input.videoFilters);
       if (input.framerate) filters.push("fps=fps=" + input.framerate);
@@ -86,7 +86,7 @@ class FFmpeg {
     return new Promise<void>((resolve, reject) => {
       const args: string[] = [];
 
-      args.push("-i", input.video.filename);
+      args.push("-i", input.video.path);
 
       if (input.audioInterval) {
         args.push(

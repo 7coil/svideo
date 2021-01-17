@@ -43,7 +43,7 @@ class App {
     format            : ${this.format}
     grid size         : ${this.rows} x ${this.columns}
     compression level : ${this.compressionLevel}
-    input video       : ${this.video?.filename}
+    input video       : ${this.video?.path}
     output project    : ${this.outputFile}
     temp folder       : ${this.tempFolder}
     subtitles         : ${this.subtitles || "None"}
