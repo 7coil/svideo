@@ -312,6 +312,7 @@ class App {
         backgroundColour: {
           type: "string",
           alias: "colour",
+          default: "black",
           description: "Set the colour of the padded region around the video"
         }
       })
