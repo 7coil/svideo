@@ -16,7 +16,8 @@
     "compile": "tsc",
     "prepare": "npm-run-all --sequential compile copy-files",
     "copy-files": "copyfiles -f src/background.svg src/template.json dist/",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "start": "node dist/cli.js"
   },
   "devDependencies": {
     "@types/archiver": "^5.1.0",
