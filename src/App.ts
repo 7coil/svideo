@@ -230,13 +230,13 @@ class App {
         rows: {
           type: "number",
           alias: "row",
-          default: 30,
+          default: 10,
           description: "The number of rows to place in the grid",
         },
         columns: {
           type: "number",
           alias: "col",
-          default: 20,
+          default: 10,
           description: "The number of columns to place in the grid",
         },
         input: {
