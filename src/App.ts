@@ -27,6 +27,7 @@ class App {
   private subtitles: string;
   private audioInterval: number = 0;
   private videoFilters: string;
+  private backgroundColour: string = "black";
   private get height(): number {
     return Math.round(this.width / ASPECT_RATIO);
   }
@@ -49,6 +50,10 @@ class App {
     subtitles         : ${this.subtitles || "None"}
     audio interval    : ${this.audioInterval || "None"}
     `;
+  }
+
+  setBackgroundColour(colour: string) {
+    this.backgroundColour = colour;
   }
 
   setVideoFilters(vf: string) {
@@ -180,6 +185,7 @@ class App {
       tempFolder: this.tempFolder,
       subtitles: this.subtitles,
       videoFilters: this.videoFilters,
+      backgroundColour: this.backgroundColour,
     });
 
     await FFmpeg.convertToAudio({
@@ -303,6 +309,11 @@ class App {
           description:
             "Additional video filters to pass to FFMPEG, such as crop",
         },
+        backgroundColour: {
+          type: "string",
+          alias: "colour",
+          description: "Set the colour of the padded region around the video"
+        }
       })
       .wrap(yargs.terminalWidth());
 
@@ -319,6 +330,7 @@ class App {
     if (argv.subtitles) app.setSubtitlesFile(argv.subtitles);
     if (argv.audioInterval) app.setAudioInterval(argv.audioInterval);
     if (argv.videoFilters) app.setVideoFilters(argv.videoFilters);
+    if (argv.backgroundColour) app.setBackgroundColour(argv.backgroundColour);
 
     console.log(app.toString());
     await app.convert();

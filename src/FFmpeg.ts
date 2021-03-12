@@ -18,6 +18,7 @@ interface ExtractVideoInput {
   tempFolder: string;
   subtitles: string;
   videoFilters: string;
+  backgroundColour: string;
 }
 
 interface ExtractAudioInput {
@@ -41,7 +42,7 @@ class FFmpeg {
       filters.push(
         `scale=${input.width}:${input.height}:force_original_aspect_ratio=decrease`
       );
-      filters.push(`pad=${input.width}:${input.height}:-1:-1`);
+      filters.push(`pad=${input.width}:${input.height}:-1:-1:color=${input.backgroundColour}`);
       if (input.subtitles) {
         const parsedSubtitlesFile = parse(input.subtitles)
         tempSubtitlesFileName = 'subtitles' + parsedSubtitlesFile.ext
