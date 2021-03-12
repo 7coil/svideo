@@ -20,7 +20,7 @@ class Video {
   audio: boolean = false;
 
   constructor(filename: string) {
-    this.path = path.resolve(filename);
+    this.path = path.resolve(process.cwd(), filename);
     this.filename = filename;
   }
 
