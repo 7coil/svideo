@@ -1,7 +1,8 @@
 import archiver from "archiver";
 import fs, { createWriteStream } from "fs";
 import path from "path";
-import yargs from "yargs";
+import yargs from "yargs/yargs";
+import { terminalWidth } from "yargs";
 import { AppState, Container, ImageFileFormats } from "./enum";
 import { FFmpeg } from "./FFmpeg";
 import { FileRenamer } from "./FileRenamer";
@@ -231,7 +232,7 @@ class App {
   }
 
   static async main(args: string[]) {
-    const { argv } = yargs(args.slice(2))
+    const argv = await yargs(args.slice(2))
       .options({
         rows: {
           type: "number",
@@ -313,12 +314,14 @@ class App {
           type: "string",
           alias: "colour",
           default: "black",
-          description: "Set the colour of the padded region around the video"
-        }
+          description: "Set the colour of the padded region around the video",
+        },
       })
-      .wrap(yargs.terminalWidth());
+      .wrap(terminalWidth())
+      .parseAsync();
 
     const app = new App();
+
     if (argv.rows) app.setRows(argv.rows);
     if (argv.columns) app.setColumns(argv.columns);
     if (argv.input) await app.setFile(argv.input);
