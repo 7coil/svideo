@@ -29,6 +29,9 @@ class App {
   private audioInterval: number = 0;
   private videoFilters: string;
   private backgroundColour: string = "black";
+  private startPosition: string | undefined
+  private endPosition: string | undefined
+
   private get height(): number {
     return Math.round(this.width / ASPECT_RATIO);
   }
@@ -161,6 +164,14 @@ class App {
     this.framerate = framerate;
   }
 
+  setStartPosition(start?: string) {
+    this.startPosition = start;
+  }
+  
+  setEndPosition(end?: string) {
+    this.endPosition = end;
+  }
+
   reset() {
     if (this.state !== AppState.FINISHED)
       throw new Error("You may not reset until the application is finished");
@@ -173,7 +184,7 @@ class App {
     if (this.state !== AppState.READY)
       throw new Error("Cannot convert until the application is reset");
 
-    await FFmpeg.convertToFrames({
+    await FFmpeg.convert({
       compressionLevel: this.compressionLevel,
       container: this.container,
       format: this.format,
@@ -187,11 +198,8 @@ class App {
       subtitles: this.subtitles,
       videoFilters: this.videoFilters,
       backgroundColour: this.backgroundColour,
-    });
-
-    await FFmpeg.convertToAudio({
-      tempFolder: this.tempFolder,
-      video: this.video,
+      startPosition: this.startPosition,
+      endPosition: this.endPosition,
       audioInterval: this.audioInterval,
     });
 
@@ -316,6 +324,16 @@ class App {
           default: "black",
           description: "Set the colour of the padded region around the video",
         },
+        startPosition: {
+          type: "string",
+          alias: "ss",
+          description: "Seek to a start position"
+        },
+        endPosition: {
+          type: "string",
+          alias: "to",
+          description: "Stop at an end position"
+        }
       })
       .wrap(terminalWidth())
       .parseAsync();
@@ -335,6 +353,8 @@ class App {
     if (argv.audioInterval) app.setAudioInterval(argv.audioInterval);
     if (argv.videoFilters) app.setVideoFilters(argv.videoFilters);
     if (argv.backgroundColour) app.setBackgroundColour(argv.backgroundColour);
+    if (argv.startPosition) app.setStartPosition(argv.startPosition)
+    if (argv.endPosition) app.setEndPosition(argv.endPosition)
 
     console.log(app.toString());
     await app.convert();
