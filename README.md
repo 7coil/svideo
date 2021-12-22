@@ -41,19 +41,23 @@ svideo -i input.mp4 -o output.sb3
 
 ```
 Options:
-    --help              Show help                                                                                       [boolean]
-    --version           Show version number                                                                             [boolean]
-    --rows, --row       The number of rows to place in the grid                                            [number] [default: 30]
-    --columns, --col    The number of columns to place in the grid                                         [number] [default: 20]
--i, --input             Input file to convert                                                                 [string] [required]
--o, --output            Destination file for the Scratch `.sb3` archive                                       [string] [required]
--w, --width             The width of each frame                                                           [number] [default: 480]
--t, --temporaryFolder   Path to a temporary folder for use while building the project                 [string] [default: "temp/"]
--f, --imageFileFormat   The file format of frames in the output                          [choices: "jpg", "png"] [default: "jpg"]
--r, --frameRate         The framerate of the output                                                                      [number]
--q, --compressionLevel  The compression level of the image. 1-100 for PNG and 1-32 for JPEG                              [number]
--a, --audioInterval     The number of seconds between cuts in the audio                               [number] [default: No cuts]
--s, --subtitles         Hardcode (burn) subtitles onto the video                                                         [string]
+      --help                        Show help                                                                                 [boolean]
+      --version                     Show version number                                                                       [boolean]
+      --rows, --row                 The number of rows to place in the grid                                      [number] [default: 10]
+      --columns, --col              The number of columns to place in the grid                                   [number] [default: 10]
+  -i, --input                       Input file to convert                                                           [string] [required]
+  -o, --output                      Destination file for the Scratch `.sb3` archive                                 [string] [required]
+  -w, --width                       The width of each frame                                                     [number] [default: 480]
+  -t, --temporaryFolder             Path to a temporary folder for use while building the project           [string] [default: "temp/"]
+  -f, --imageFileFormat             The file format of frames in the output                    [choices: "jpg", "png"] [default: "jpg"]
+  -r, --frameRate                   The framerate of the output                                                                [number]
+  -q, --compressionLevel            The compression level of the image. 1-100 for PNG and 1-32 for JPEG                        [number]
+  -a, --audioInterval               The number of seconds between cuts in the audio                         [number] [default: No cuts]
+  -s, --subtitles                   Hardcode (burn) subtitles onto the video                                                   [string]
+      --videoFilters, --vf          Additional video filters to pass to FFMPEG, such as crop                                   [string]
+      --backgroundColour, --colour  Set the colour of the padded region around the video                    [string] [default: "black"]
+      --startPosition, --ss         Seek to a start position                                                                   [string]
+      --endPosition, --to           Stop at an end position                                                                    [string]
 ```
 
 </details>
