@@ -77,7 +77,7 @@ class FFmpeg {
   }
 
   static createVideoFiltersString(input: ExtractInput) {
-    return FFmpeg.createVideoFilters(input).join(',')
+    return FFmpeg.createVideoFilters(input).join(",");
   }
 
   static convert(input: ExtractInput) {
@@ -91,9 +91,9 @@ class FFmpeg {
        */
       if (input.startPosition) args.push("-ss", input.startPosition);
       if (input.endPosition) args.push("-to", input.endPosition);
-      args.push('-vf', FFmpeg.createVideoFiltersString(input))
+      args.push("-vf", FFmpeg.createVideoFiltersString(input));
 
-      args.push("-map", "0:v")
+      args.push("-map", "0:v");
       args.push("-c:v", "mjpeg");
 
       // Add format dependant arguments
@@ -111,7 +111,7 @@ class FFmpeg {
       /**
        * Audio Section
        */
-      args.push("-map", "0:a")
+      args.push("-map", "0:a");
       args.push("-c:a", "libmp3lame");
 
       if (input.audioInterval) {
@@ -136,7 +136,12 @@ class FFmpeg {
       ffmpeg.on("exit", (code) => {
         if (input.subtitles) {
           const parsedSubtitlesFile = parse(input.subtitles);
-          unlinkSync(path.resolve(input.tempFolder, "subtitles" + parsedSubtitlesFile.ext));
+          unlinkSync(
+            path.resolve(
+              input.tempFolder,
+              "subtitles" + parsedSubtitlesFile.ext
+            )
+          );
         }
 
         if (code) {

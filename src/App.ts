@@ -29,8 +29,8 @@ class App {
   private audioInterval: number = 0;
   private videoFilters: string;
   private backgroundColour: string = "black";
-  private startPosition: string | undefined
-  private endPosition: string | undefined
+  private startPosition: string | undefined;
+  private endPosition: string | undefined;
 
   private get height(): number {
     return Math.round(this.width / ASPECT_RATIO);
@@ -167,7 +167,7 @@ class App {
   setStartPosition(start?: string) {
     this.startPosition = start;
   }
-  
+
   setEndPosition(end?: string) {
     this.endPosition = end;
   }
@@ -327,13 +327,13 @@ class App {
         startPosition: {
           type: "string",
           alias: "ss",
-          description: "Seek to a start position"
+          description: "Seek to a start position",
         },
         endPosition: {
           type: "string",
           alias: "to",
-          description: "Stop at an end position"
-        }
+          description: "Stop at an end position",
+        },
       })
       .wrap(terminalWidth())
       .parseAsync();
@@ -353,8 +353,8 @@ class App {
     if (argv.audioInterval) app.setAudioInterval(argv.audioInterval);
     if (argv.videoFilters) app.setVideoFilters(argv.videoFilters);
     if (argv.backgroundColour) app.setBackgroundColour(argv.backgroundColour);
-    if (argv.startPosition) app.setStartPosition(argv.startPosition)
-    if (argv.endPosition) app.setEndPosition(argv.endPosition)
+    if (argv.startPosition) app.setStartPosition(argv.startPosition);
+    if (argv.endPosition) app.setEndPosition(argv.endPosition);
 
     console.log(app.toString());
     await app.convert();

@@ -10,3 +10,12 @@ node_modules/
 *.vtt
 *.sfk
 yarn-error.log
+
+# Berry
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

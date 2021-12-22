@@ -11,6 +11,7 @@ enum ProjectBuilderReplacement {
   TOTAL = 6,
   PICTURES = 7,
   AUDIO = 8,
+  AUDIO_COUNT = 9,
 }
 
 class ProjectBuilder {
@@ -57,7 +58,11 @@ class ProjectBuilder {
       .injectField(
         ProjectBuilderReplacement.TOTAL,
         costumes.length * framesPerSheet
-      );
+      )
+      .injectField(
+        ProjectBuilderReplacement.AUDIO_COUNT,
+        audio.length - 1
+      )
 
     return this;
   }

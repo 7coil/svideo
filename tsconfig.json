@@ -10,11 +10,6 @@
     "typeRoots": ["./node_modules/@types", "./types"],
     "declaration": true
   },
-  "include": [
-    "./src/index.ts",
-    "./src/cli.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["./src/index.ts", "./src/cli.ts"],
+  "exclude": ["node_modules"]
 }

@@ -5,11 +5,11 @@
   "license": "MIT",
   "dependencies": {
     "archiver": "^5.3.0",
-    "ffmpeg-ffprobe-static": "^4.3.1-rc.6",
+    "ffmpeg-ffprobe-static": "^4.4.0-rc.11",
     "ffmpeg-static": "^4.4.0",
     "ffprobe": "^1.1.2",
     "ffprobe-static": "^3.0.0",
-    "yargs": "^17.0.1"
+    "yargs": "^17.3.0"
   },
   "scripts": {
     "build": "npm-run-all --sequential compile copy-files",
@@ -20,22 +20,20 @@
     "start": "node dist/cli.js"
   },
   "devDependencies": {
-    "@types/archiver": "^5.1.0",
-    "@types/copy-webpack-plugin": "^8.0.0",
+    "@types/archiver": "^5.1.1",
+    "@types/copy-webpack-plugin": "^10.1.0",
     "@types/ffmpeg-static": "^3.0.0",
-    "@types/ffprobe": "^1.1.1",
+    "@types/ffprobe": "^1.1.2",
     "@types/ffprobe-static": "^2.0.0",
-    "@types/node": "^15.12.5",
-    "@types/yargs": "^17.0.0",
+    "@types/node": "^17.0.2",
+    "@types/yargs": "^17.0.7",
     "copyfiles": "^2.4.1",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.3.2",
-    "ts-node": "^10.0.0",
-    "typescript": "^4.3.4"
+    "prettier": "^2.5.1",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.4"
   },
-  "bin": {
-    "svideo": "./dist/cli.js"
-  },
+  "bin": "./dist/cli.js",
   "bugs": {
     "url": "https://github.com/7coil/svideo/issues",
     "email": "github@leondrolio.com"
@@ -43,5 +41,6 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:7coil/svideo.git"
-  }
+  },
+  "packageManager": "yarn@3.1.1"
 }
