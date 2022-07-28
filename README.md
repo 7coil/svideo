@@ -5,12 +5,22 @@ Convert your videos into an animated Scratch project!
 - [leondrolio.com](https://leondrolio.com)
 - [technical support on my discord server ✨](https://discordapp.com/invite/wHgdmf4).
 
-Features:
+## Technical Achievements
 
-- Uses FFmpeg to convert into frames
-  - Hardcode subtitles
-  - Adjustable resolution
-- Ability to split audio into chunks
+### Many frames per costume
+
+Instead of the naiive method of assigning each frame of a video to a costume,
+each costume contains many frames, arranged in a grid (default of 30x30).
+This allows the PNG or JPEG compression to work between more frames
+(partially interframe compression) rather than per frame (intraframe compression).
+
+Frames are instead displayed as a spritesheet.
+
+### Skip (immediate) duplicate frames
+
+To be able to cram more photos per spritesheet and improve overall compression, as well as reduce
+the number of bitmaps Scratch needs to load, frames that look similar to the immediate previous
+frame will be discarded, and will be repeated in the video player.
 
 ## Examples
 

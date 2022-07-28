@@ -184,7 +184,7 @@ class App {
     if (this.state !== AppState.READY)
       throw new Error("Cannot convert until the application is reset");
 
-    await FFmpeg.convert({
+    const frameReverse = await FFmpeg.convert({
       compressionLevel: this.compressionLevel,
       container: this.container,
       format: this.format,
@@ -220,6 +220,10 @@ class App {
       .injectField(ProjectBuilderReplacement.ROWS, this.rows)
       .injectField(ProjectBuilderReplacement.COLUMNS, this.columns)
       .injectField(ProjectBuilderReplacement.SIZE, scratchSize)
+      .injectField(
+        ProjectBuilderReplacement.FRAME_REVERSE,
+        JSON.stringify(frameReverse)
+      )
       .injectFiles(renamedFiles, this.rows * this.columns)
       .write(this.tempFolder);
 

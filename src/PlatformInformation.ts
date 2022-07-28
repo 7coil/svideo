@@ -1,3 +1,5 @@
+import ffmpeg from "ffmpeg-static";
+
 class PlatformInformation {
   static getPlatformBinaryExtension() {
     switch (process.platform) {
@@ -6,6 +8,10 @@ class PlatformInformation {
       default:
         return "";
     }
+  }
+
+  static getEncoderBinaryPath(): string {
+    return ffmpeg;
   }
 }
 

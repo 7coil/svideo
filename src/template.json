@@ -7,42 +7,48 @@
         "2:FQ7gq{kkSOZsi5]Rv1": ["config.fps", [false, 21, 1]],
         "e#s4N_8_PBJjm`mHFD]k": ["config.rows", [false, 21, 4]],
         "Afv%u|gq3{^%H0D3xX]c": ["config.columns", [false, 21, 5]],
-        "aZuYa!yv*JbF;)iVVwZM": ["frame", 0],
-        "u{D5,4lv0e^|qpMD~5R!": ["row", 0],
-        "%CyssOL$:id35},Qz2-[": ["column", 0],
+        "aZuYa!yv*JbF;)iVVwZM": ["frameTime", 22],
+        "u{D5,4lv0e^|qpMD~5R!": ["row", 2],
+        "%CyssOL$:id35},Qz2-[": ["column", 2],
         "]wb=SCs3)]UW152dn86C": ["sheet", 0],
         "(/Uo2W8{YAyb2.0*Xks(": ["SCRATCH_TOP", 180],
         "Xo{.P{+^tg!WlRAG@41K": ["SCRATCH_LEFT", -240],
         "g7q~^(UDN6zz-mb3$.Ij": ["SCRATCH_WIDTH", 480],
         "ON|qLsS4%QG1(5#TG2I)": ["SCRATCH_HEIGHT", 360],
-        "f]b0+:vYdSJa5~-$Rdx}": ["soundCounter", 1],
+        "f]b0+:vYdSJa5~-$Rdx}": ["soundCounter", "0"],
         "cr^|j2aW[Phfg(a?DW^2": ["soundFile", "000"],
         "s:NxM#LRQhs1}inGDhq!": ["config.soundCounterLimit", [false, 21, 9]],
-        "C+]WRcgddAOnD,GFL2dI": ["config.thumbnailFrame", 0]
+        "5)dx$ucTj*{xQoN)=Le?": ["spritesheetFrame", 22],
+        ".|Glg]t{il%?^s(JY)U(": ["config.thumbnail", 0]
       },
-      "lists": {},
-      "broadcasts": {},
+      "lists": {
+        ",$F5u1JZjw8X|9o]kINU": ["duplcateFrames", [false, 21, 10]]
+      },
+      "broadcasts": {
+        "~OSOq}@}{S,Q%2D+wY^o": "svideo.displayThumbnail()",
+        "G{2;(fe*a#B_rV*cD3`#": "svideo.hideThumbnail()"
+      },
       "blocks": {},
       "comments": {},
       "currentCostume": 0,
       "costumes": [
         {
-          "assetId": "cd21514d0531fdffb22204e0ec5ed84a",
           "name": "backdrop1",
-          "md5ext": "cd21514d0531fdffb22204e0ec5ed84a.svg",
           "dataFormat": "svg",
+          "assetId": "cd21514d0531fdffb22204e0ec5ed84a",
+          "md5ext": "cd21514d0531fdffb22204e0ec5ed84a.svg",
           "rotationCenterX": 240,
           "rotationCenterY": 180
         }
       ],
       "sounds": [
         {
-          "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
           "name": "pop",
+          "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
           "dataFormat": "wav",
           "format": "",
           "rate": 48000,
-          "sampleCount": 1124,
+          "sampleCount": 1123,
           "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
         }
       ],
@@ -60,139 +66,16 @@
       "lists": {},
       "broadcasts": {},
       "blocks": {
-        "{Y?q8~=W:h!G#1N*mF:r": {
-          "opcode": "event_whenflagclicked",
-          "next": "P8n9]9NNSTV()n8c}KqF",
-          "parent": null,
-          "inputs": {},
-          "fields": {},
-          "shadow": false,
-          "topLevel": true,
-          "x": -152,
-          "y": 240
-        },
-        "P8n9]9NNSTV()n8c}KqF": {
-          "opcode": "data_setvariableto",
-          "next": "zw#d-o,c_4QG9d}-6qIz",
-          "parent": "{Y?q8~=W:h!G#1N*mF:r",
-          "inputs": { "VALUE": [1, [10, "0"]] },
-          "fields": { "VARIABLE": ["frame", "aZuYa!yv*JbF;)iVVwZM"] },
-          "shadow": false,
-          "topLevel": false
-        },
-        "zw#d-o,c_4QG9d}-6qIz": {
-          "opcode": "sensing_resettimer",
-          "next": "0bu(U;@Na!AD8I|jpQ[F",
-          "parent": "P8n9]9NNSTV()n8c}KqF",
-          "inputs": {},
-          "fields": {},
-          "shadow": false,
-          "topLevel": false
-        },
-        "FcNwMSDhzHwYlXv5@PKX": {
-          "opcode": "data_setvariableto",
-          "next": "dTuogd[FYeXtbh`%Jbl)",
-          "parent": "0bu(U;@Na!AD8I|jpQ[F",
-          "inputs": { "VALUE": [3, "hA]-+{/JlpDYp*kvAh|}", [10, "0"]] },
-          "fields": { "VARIABLE": ["frame", "aZuYa!yv*JbF;)iVVwZM"] },
-          "shadow": false,
-          "topLevel": false
-        },
-        "hA]-+{/JlpDYp*kvAh|}": {
-          "opcode": "operator_mathop",
-          "next": null,
-          "parent": "FcNwMSDhzHwYlXv5@PKX",
-          "inputs": { "NUM": [3, "zL*n{ac#[V?6ch13eQ7S", [4, ""]] },
-          "fields": { "OPERATOR": ["floor"] },
-          "shadow": false,
-          "topLevel": false
-        },
-        "zL*n{ac#[V?6ch13eQ7S": {
-          "opcode": "operator_multiply",
-          "next": null,
-          "parent": "hA]-+{/JlpDYp*kvAh|}",
-          "inputs": {
-            "NUM1": [3, "T)B3=4[2pRkOZWY{WzaM", [4, ""]],
-            "NUM2": [3, [12, "config.fps", "2:FQ7gq{kkSOZsi5]Rv1"], [4, ""]]
-          },
-          "fields": {},
-          "shadow": false,
-          "topLevel": false
-        },
-        "T)B3=4[2pRkOZWY{WzaM": {
-          "opcode": "sensing_timer",
-          "next": null,
-          "parent": "zL*n{ac#[V?6ch13eQ7S",
-          "inputs": {},
-          "fields": {},
-          "shadow": false,
-          "topLevel": false
-        },
-        "dTuogd[FYeXtbh`%Jbl)": {
-          "opcode": "procedures_call",
-          "next": null,
-          "parent": "FcNwMSDhzHwYlXv5@PKX",
-          "inputs": {
-            ")x+CK!3kh0.jl/j23/qp": [
-              3,
-              [12, "frame", "aZuYa!yv*JbF;)iVVwZM"],
-              [10, ""]
-            ]
-          },
-          "fields": {},
-          "shadow": false,
-          "topLevel": false,
-          "mutation": {
-            "tagName": "mutation",
-            "children": [],
-            "proccode": "displayFrame %s",
-            "argumentids": "[\")x+CK!3kh0.jl/j23/qp\"]",
-            "warp": "false"
-          }
-        },
-        "|fR?:EsjI4?:z+R7Nc#Z": {
-          "opcode": "control_forever",
-          "next": null,
-          "parent": null,
-          "inputs": { "SUBSTACK": [2, ";YEN@=!F3UQ{7KJwOLlH"] },
-          "fields": {},
-          "shadow": false,
-          "topLevel": true,
-          "x": 1028,
-          "y": -240
-        },
-        ";YEN@=!F3UQ{7KJwOLlH": {
-          "opcode": "procedures_call",
-          "next": null,
-          "parent": "|fR?:EsjI4?:z+R7Nc#Z",
-          "inputs": {
-            ")x+CK!3kh0.jl/j23/qp": [
-              3,
-              [12, "config.thumbnailFrame", "C+]WRcgddAOnD,GFL2dI"],
-              [10, "400"]
-            ]
-          },
-          "fields": {},
-          "shadow": false,
-          "topLevel": false,
-          "mutation": {
-            "tagName": "mutation",
-            "children": [],
-            "proccode": "displayFrame %s",
-            "argumentids": "[\")x+CK!3kh0.jl/j23/qp\"]",
-            "warp": "false"
-          }
-        },
         "C_kM=t^oKgMo7S3lLWd_": {
           "opcode": "procedures_definition",
-          "next": "q+)OJb%vyNsSp+*vGo.%",
+          "next": "5g!|nK~4-t6vXXt-:cIU",
           "parent": null,
           "inputs": { "custom_block": [1, ")^`=xOwOsU{bgJib*q1:"] },
           "fields": {},
           "shadow": false,
           "topLevel": true,
-          "x": 1015,
-          "y": 230
+          "x": 1021,
+          "y": 319
         },
         ")^`=xOwOsU{bgJib*q1:": {
           "opcode": "procedures_prototype",
@@ -221,10 +104,72 @@
           "shadow": true,
           "topLevel": false
         },
+        "5g!|nK~4-t6vXXt-:cIU": {
+          "opcode": "data_setvariableto",
+          "next": "q+)OJb%vyNsSp+*vGo.%",
+          "parent": "C_kM=t^oKgMo7S3lLWd_",
+          "inputs": { "VALUE": [3, "*+U#%gWDJ7xdNa:$tAtY", [10, "0"]] },
+          "fields": {
+            "VARIABLE": ["spritesheetFrame", "5)dx$ucTj*{xQoN)=Le?"]
+          },
+          "shadow": false,
+          "topLevel": false
+        },
+        "*+U#%gWDJ7xdNa:$tAtY": {
+          "opcode": "operator_add",
+          "next": null,
+          "parent": "5g!|nK~4-t6vXXt-:cIU",
+          "inputs": {
+            "NUM1": [3, ",Vj/JyGG+WXVCTXJ8w4V", [4, ""]],
+            "NUM2": [3, "cnlAG_[%$aT?#@RWm/p3", [4, ""]]
+          },
+          "fields": {},
+          "shadow": false,
+          "topLevel": false
+        },
+        ",Vj/JyGG+WXVCTXJ8w4V": {
+          "opcode": "argument_reporter_string_number",
+          "next": null,
+          "parent": "*+U#%gWDJ7xdNa:$tAtY",
+          "inputs": {},
+          "fields": { "VALUE": ["frame", null] },
+          "shadow": false,
+          "topLevel": false
+        },
+        "cnlAG_[%$aT?#@RWm/p3": {
+          "opcode": "data_itemoflist",
+          "next": null,
+          "parent": "*+U#%gWDJ7xdNa:$tAtY",
+          "inputs": { "INDEX": [3, "8Z,OPvRggd4SlK?;EWNs", [7, "1"]] },
+          "fields": { "LIST": ["duplcateFrames", ",$F5u1JZjw8X|9o]kINU"] },
+          "shadow": false,
+          "topLevel": false
+        },
+        "8Z,OPvRggd4SlK?;EWNs": {
+          "opcode": "operator_add",
+          "next": null,
+          "parent": "cnlAG_[%$aT?#@RWm/p3",
+          "inputs": {
+            "NUM1": [3, "aoOn62yE+Hp{#f8kbme{", [4, ""]],
+            "NUM2": [1, [4, "2"]]
+          },
+          "fields": {},
+          "shadow": false,
+          "topLevel": false
+        },
+        "aoOn62yE+Hp{#f8kbme{": {
+          "opcode": "argument_reporter_string_number",
+          "next": null,
+          "parent": "8Z,OPvRggd4SlK?;EWNs",
+          "inputs": {},
+          "fields": { "VALUE": ["frame", null] },
+          "shadow": false,
+          "topLevel": false
+        },
         "q+)OJb%vyNsSp+*vGo.%": {
           "opcode": "data_setvariableto",
           "next": "CB~kcMbU^Y5x1fEtFGWO",
-          "parent": "C_kM=t^oKgMo7S3lLWd_",
+          "parent": "5g!|nK~4-t6vXXt-:cIU",
           "inputs": { "VALUE": [3, "gR^z+R}S1FzaOwYwM?1Y", [10, "0"]] },
           "fields": { "VARIABLE": ["column", "%CyssOL$:id35},Qz2-["] },
           "shadow": false,
@@ -235,19 +180,14 @@
           "next": null,
           "parent": "q+)OJb%vyNsSp+*vGo.%",
           "inputs": {
-            "NUM1": [3, "aoOn62yE+Hp{#f8kbme{", [4, ""]],
+            "NUM1": [
+              3,
+              [12, "spritesheetFrame", "5)dx$ucTj*{xQoN)=Le?"],
+              [4, ""]
+            ],
             "NUM2": [3, [12, "config.rows", "e#s4N_8_PBJjm`mHFD]k"], [4, ""]]
           },
           "fields": {},
-          "shadow": false,
-          "topLevel": false
-        },
-        "aoOn62yE+Hp{#f8kbme{": {
-          "opcode": "argument_reporter_string_number",
-          "next": null,
-          "parent": "gR^z+R}S1FzaOwYwM?1Y",
-          "inputs": {},
-          "fields": { "VALUE": ["frame", null] },
           "shadow": false,
           "topLevel": false
         },
@@ -286,19 +226,14 @@
           "next": null,
           "parent": ",hcxR]v7)zg9DZ)MPMA@",
           "inputs": {
-            "NUM1": [3, "-SNR0f?N_kzs[8Czz!l,", [4, ""]],
+            "NUM1": [
+              3,
+              [12, "spritesheetFrame", "5)dx$ucTj*{xQoN)=Le?"],
+              [4, ""]
+            ],
             "NUM2": [3, [12, "config.rows", "e#s4N_8_PBJjm`mHFD]k"], [4, ""]]
           },
           "fields": {},
-          "shadow": false,
-          "topLevel": false
-        },
-        "-SNR0f?N_kzs[8Czz!l,": {
-          "opcode": "argument_reporter_string_number",
-          "next": null,
-          "parent": "Sp(^yyNAD;J`hzdPds7+",
-          "inputs": {},
-          "fields": { "VALUE": ["frame", null] },
           "shadow": false,
           "topLevel": false
         },
@@ -325,19 +260,14 @@
           "next": null,
           "parent": "Eu+QR.{43L5;_,VS]^#m",
           "inputs": {
-            "NUM1": [3, "B98y;3m+z]p]*ADu%,SK", [4, ""]],
+            "NUM1": [
+              3,
+              [12, "spritesheetFrame", "5)dx$ucTj*{xQoN)=Le?"],
+              [4, ""]
+            ],
             "NUM2": [3, "tEn=}jy{XhP1PPrNMjhg", [4, ""]]
           },
           "fields": {},
-          "shadow": false,
-          "topLevel": false
-        },
-        "B98y;3m+z]p]*ADu%,SK": {
-          "opcode": "argument_reporter_string_number",
-          "next": null,
-          "parent": "rk%rz},M?Cdq?~(JmyG%",
-          "inputs": {},
-          "fields": { "VALUE": ["frame", null] },
           "shadow": false,
           "topLevel": false
         },
@@ -453,8 +383,8 @@
           "fields": {},
           "shadow": false,
           "topLevel": true,
-          "x": 391,
-          "y": 225
+          "x": 447,
+          "y": 316
         },
         "elXLhPJLWrYS.Re5_Etd": {
           "opcode": "data_setvariableto",
@@ -476,7 +406,7 @@
         },
         "Hq].R;Fu@gI[=;aON1jd": {
           "opcode": "control_repeat_until",
-          "next": "tY|u=N{DMeb^DP;8S5_v",
+          "next": null,
           "parent": "/H+jL#}J+gPuopUD)7W^",
           "inputs": {
             "CONDITION": [2, "(WS,/M_UJ5rcII{(]:=j"],
@@ -667,15 +597,134 @@
           "shadow": false,
           "topLevel": false
         },
-        "tY|u=N{DMeb^DP;8S5_v": {
+        "{Y?q8~=W:h!G#1N*mF:r": {
+          "opcode": "event_whenflagclicked",
+          "next": "P8n9]9NNSTV()n8c}KqF",
+          "parent": null,
+          "inputs": {},
+          "fields": {},
+          "shadow": false,
+          "topLevel": true,
+          "x": -163,
+          "y": 325
+        },
+        "P8n9]9NNSTV()n8c}KqF": {
+          "opcode": "data_setvariableto",
+          "next": "7?n*8*,;*1HcN_f#S/@$",
+          "parent": "{Y?q8~=W:h!G#1N*mF:r",
+          "inputs": { "VALUE": [1, [10, "0"]] },
+          "fields": { "VARIABLE": ["frameTime", "aZuYa!yv*JbF;)iVVwZM"] },
+          "shadow": false,
+          "topLevel": false
+        },
+        "7?n*8*,;*1HcN_f#S/@$": {
+          "opcode": "event_broadcast",
+          "next": "zw#d-o,c_4QG9d}-6qIz",
+          "parent": "P8n9]9NNSTV()n8c}KqF",
+          "inputs": {
+            "BROADCAST_INPUT": [
+              1,
+              [11, "svideo.hideThumbnail()", "G{2;(fe*a#B_rV*cD3`#"]
+            ]
+          },
+          "fields": {},
+          "shadow": false,
+          "topLevel": false
+        },
+        "zw#d-o,c_4QG9d}-6qIz": {
+          "opcode": "sensing_resettimer",
+          "next": "FgvK]|b+D!rNPr5M`Wz]",
+          "parent": "7?n*8*,;*1HcN_f#S/@$",
+          "inputs": {},
+          "fields": {},
+          "shadow": false,
+          "topLevel": false
+        },
+        "FgvK]|b+D!rNPr5M`Wz]": {
+          "opcode": "control_repeat_until",
+          "next": "GW$~Zh!v-o4(n~lAJw~S",
+          "parent": "zw#d-o,c_4QG9d}-6qIz",
+          "inputs": {
+            "CONDITION": [2, "%,y@DYkc_o26VJ%/EP`s"],
+            "SUBSTACK": [2, "FcNwMSDhzHwYlXv5@PKX"]
+          },
+          "fields": {},
+          "shadow": false,
+          "topLevel": false
+        },
+        "%,y@DYkc_o26VJ%/EP`s": {
+          "opcode": "operator_gt",
+          "next": null,
+          "parent": "FgvK]|b+D!rNPr5M`Wz]",
+          "inputs": {
+            "OPERAND1": [
+              3,
+              [12, "frameTime", "aZuYa!yv*JbF;)iVVwZM"],
+              [10, ""]
+            ],
+            "OPERAND2": [3, "W+^_iJ.=`xD4t8}Z//KL", [10, "50"]]
+          },
+          "fields": {},
+          "shadow": false,
+          "topLevel": false
+        },
+        "W+^_iJ.=`xD4t8}Z//KL": {
+          "opcode": "data_lengthoflist",
+          "next": null,
+          "parent": "%,y@DYkc_o26VJ%/EP`s",
+          "inputs": {},
+          "fields": { "LIST": ["duplcateFrames", ",$F5u1JZjw8X|9o]kINU"] },
+          "shadow": false,
+          "topLevel": false
+        },
+        "FcNwMSDhzHwYlXv5@PKX": {
+          "opcode": "data_setvariableto",
+          "next": "dTuogd[FYeXtbh`%Jbl)",
+          "parent": "FgvK]|b+D!rNPr5M`Wz]",
+          "inputs": { "VALUE": [3, "hA]-+{/JlpDYp*kvAh|}", [10, "0"]] },
+          "fields": { "VARIABLE": ["frameTime", "aZuYa!yv*JbF;)iVVwZM"] },
+          "shadow": false,
+          "topLevel": false
+        },
+        "hA]-+{/JlpDYp*kvAh|}": {
+          "opcode": "operator_mathop",
+          "next": null,
+          "parent": "FcNwMSDhzHwYlXv5@PKX",
+          "inputs": { "NUM": [3, "zL*n{ac#[V?6ch13eQ7S", [4, ""]] },
+          "fields": { "OPERATOR": ["floor", null] },
+          "shadow": false,
+          "topLevel": false
+        },
+        "zL*n{ac#[V?6ch13eQ7S": {
+          "opcode": "operator_multiply",
+          "next": null,
+          "parent": "hA]-+{/JlpDYp*kvAh|}",
+          "inputs": {
+            "NUM1": [3, "T)B3=4[2pRkOZWY{WzaM", [4, ""]],
+            "NUM2": [3, [12, "config.fps", "2:FQ7gq{kkSOZsi5]Rv1"], [4, ""]]
+          },
+          "fields": {},
+          "shadow": false,
+          "topLevel": false
+        },
+        "T)B3=4[2pRkOZWY{WzaM": {
+          "opcode": "sensing_timer",
+          "next": null,
+          "parent": "zL*n{ac#[V?6ch13eQ7S",
+          "inputs": {},
+          "fields": {},
+          "shadow": false,
+          "topLevel": false
+        },
+        "dTuogd[FYeXtbh`%Jbl)": {
           "opcode": "procedures_call",
-          "next": "DO!Zl%efk:-6s7r11aZ,",
-          "parent": "Hq].R;Fu@gI[=;aON1jd",
+          "next": null,
+          "parent": "FcNwMSDhzHwYlXv5@PKX",
           "inputs": {
             ")x+CK!3kh0.jl/j23/qp": [
               3,
-              [12, "config.thumbnailFrame", "C+]WRcgddAOnD,GFL2dI"],
-              [10, "0"]
+              [12, "frameTime", "aZuYa!yv*JbF;)iVVwZM"],
+              [10, ""]
             ]
           },
           "fields": {},
@@ -689,26 +738,71 @@
             "warp": "false"
           }
         },
-        "DO!Zl%efk:-6s7r11aZ,": {
-          "opcode": "control_stop",
+        "GW$~Zh!v-o4(n~lAJw~S": {
+          "opcode": "event_broadcast",
           "next": null,
-          "parent": "tY|u=N{DMeb^DP;8S5_v",
-          "inputs": {},
-          "fields": { "STOP_OPTION": ["other scripts in sprite", null] },
-          "shadow": false,
-          "topLevel": false,
-          "mutation": {
-            "tagName": "mutation",
-            "children": [],
-            "hasnext": "true"
-          }
-        },
-        "0bu(U;@Na!AD8I|jpQ[F": {
-          "opcode": "control_forever",
-          "next": null,
-          "parent": "zw#d-o,c_4QG9d}-6qIz",
-          "inputs": { "SUBSTACK": [2, "FcNwMSDhzHwYlXv5@PKX"] },
+          "parent": "FgvK]|b+D!rNPr5M`Wz]",
+          "inputs": {
+            "BROADCAST_INPUT": [
+              1,
+              [11, "svideo.displayThumbnail()", "~OSOq}@}{S,Q%2D+wY^o"]
+            ]
+          },
           "fields": {},
+          "shadow": false,
+          "topLevel": false
+        },
+        "#wZf(OoQ=Pnm2dM|fV6I": {
+          "opcode": "event_broadcast",
+          "next": null,
+          "parent": null,
+          "inputs": {
+            "BROADCAST_INPUT": [
+              1,
+              [11, "svideo.displayThumbnail()", "~OSOq}@}{S,Q%2D+wY^o"]
+            ]
+          },
+          "fields": {},
+          "shadow": false,
+          "topLevel": true,
+          "x": 1444,
+          "y": -352
+        },
+        "Us}v_mnhIC-pKPa9xK[C": {
+          "opcode": "event_broadcast",
+          "next": null,
+          "parent": null,
+          "inputs": {
+            "BROADCAST_INPUT": [
+              1,
+              [11, "svideo.hideThumbnail()", "G{2;(fe*a#B_rV*cD3`#"]
+            ]
+          },
+          "fields": {},
+          "shadow": false,
+          "topLevel": true,
+          "x": 1134,
+          "y": -353
+        },
+        "N4|o@c^96oqhko*+5~vm": {
+          "opcode": "event_whenflagclicked",
+          "next": "cD1;-_|NZe+6lZS$U:%d",
+          "parent": null,
+          "inputs": {},
+          "fields": {},
+          "shadow": false,
+          "topLevel": true,
+          "x": 786,
+          "y": -331
+        },
+        "cD1;-_|NZe+6lZS$U:%d": {
+          "opcode": "data_setvariableto",
+          "next": null,
+          "parent": "N4|o@c^96oqhko*+5~vm",
+          "inputs": { "VALUE": [1, [10, "0"]] },
+          "fields": {
+            "VARIABLE": ["config.thumbnail", ".|Glg]t{il%?^s(JY)U("]
+          },
           "shadow": false,
           "topLevel": false
         }
@@ -716,48 +810,57 @@
       "comments": {
         "3PoTcj=FhS3=0/CQ]K/Q": {
           "blockId": null,
-          "x": -149,
-          "y": -564,
-          "width": 805,
-          "height": 554,
+          "x": -160,
+          "y": -532,
+          "width": 807,
+          "height": 543,
           "minimized": false,
-          "text": "Conversion performed by SVideo - https://github.com/7coil/svideo\n\n\n---\n\nMIT License\n\nCopyright (c) 2021 Leondro Lio <github@leondrolio.com>\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
+          "text": "Conversion performed by SVideo - https://github.com/7coil/svideo\nThe SVideo (converter) code is licenced under the MIT Licence.\n\nMIT License\n\nCopyright (c) 2022 Leondro Lio <github@leondrolio.com>\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
         },
         "d|:bKkI4z~}r@kgB)XF:": {
           "blockId": null,
-          "x": 389.62962962962956,
-          "y": 37.03703703703704,
-          "width": 499.2593994140625,
-          "height": 155.5555419921875,
+          "x": 442,
+          "y": 106,
+          "width": 499,
+          "height": 155,
           "minimized": false,
-          "text": "Audio Thread\n\nLoops through all audio files, from 000 to 999, based on the number of audio files.\nStops the video when the audio finishes."
+          "text": "Audio Thread\n\nLoops through all audio files, from 000 to 999, based on the number of audio files."
         },
         "k2EQlJj~YQ0;Rr_B_--c": {
           "blockId": null,
-          "x": -150.62962962962806,
-          "y": 38.70370370370303,
-          "width": 525.9259033203125,
-          "height": 152.5926513671875,
+          "x": -164,
+          "y": 108,
+          "width": 525,
+          "height": 152,
           "minimized": false,
-          "text": "Video Thread\n\nRepeatedly displays the current frame for the current time based off the timer.\nVideo stops when audio thread stops."
+          "text": "Video Thread\n\nRepeatedly displays the current frame for the current time based off the timer.\nVideo stops when the last frame is displayed."
         },
         "aAUJS1C4Y:0Cb{7u,S}*": {
           "blockId": null,
-          "x": 1013.8148148148166,
-          "y": 38.70370370370236,
-          "width": 491.85205078125,
-          "height": 157.03704833984375,
+          "x": 1015,
+          "y": 106,
+          "width": 491,
+          "height": 157,
           "minimized": false,
           "text": "Spritesheet Displayer\n\nDisplays the relevant \"sprite\" or \"frame\""
         },
         "zS8B;(p#x+M4r%TnF)e,": {
           "blockId": null,
-          "x": 1026.6666666666665,
-          "y": -416.2962962962963,
-          "width": 487.407470703125,
-          "height": 151.11111450195312,
+          "x": 784,
+          "y": -519,
+          "width": 487,
+          "height": 151,
           "minimized": false,
-          "text": "Thumbnail helper\n\nAdjust slider on Scratch project with loop running to help find a thumbnail for the video."
+          "text": "Thumbnails!\n\nPlease configure if you want to enable and/or disable the Video thumbnail."
+        },
+        "PmfeJ-)dvD_YNxz%2bUg": {
+          "blockId": null,
+          "x": 1284,
+          "y": 281,
+          "width": 594,
+          "height": 97,
+          "minimized": false,
+          "text": "// TODO: Shouldn't really be +2, was expecting only just +1 to normalise between standard array first item index (0) and Scratch Array first item index (1)"
         }
       },
       "currentCostume": 0,
@@ -766,9 +869,162 @@
       "volume": 100,
       "layerOrder": 1,
       "visible": true,
-      "x": -240,
-      "y": 180,
+      "x": -1200,
+      "y": 900,
       "size": [false, 21, 3],
+      "direction": 90,
+      "draggable": false,
+      "rotationStyle": "all around"
+    },
+    {
+      "isStage": false,
+      "name": "Video Thumbnail",
+      "variables": {},
+      "lists": {},
+      "broadcasts": {},
+      "blocks": {
+        "u8re0i?{6)_p9p1UyX=X": {
+          "opcode": "event_whenbroadcastreceived",
+          "next": "sj2=4K5a;]y360[,#t[s",
+          "parent": null,
+          "inputs": {},
+          "fields": {
+            "BROADCAST_OPTION": [
+              "svideo.displayThumbnail()",
+              "~OSOq}@}{S,Q%2D+wY^o"
+            ]
+          },
+          "shadow": false,
+          "topLevel": true,
+          "x": -14,
+          "y": -176
+        },
+        "sj2=4K5a;]y360[,#t[s": {
+          "opcode": "control_if_else",
+          "next": null,
+          "parent": "u8re0i?{6)_p9p1UyX=X",
+          "inputs": {
+            "CONDITION": [2, "HfkUF|t#_7.iY^nfrFe:"],
+            "SUBSTACK": [2, ")VMHrryaE`(nJ$kFXM^U"],
+            "SUBSTACK2": [2, "]2K3dca(8[pV,LPl(CpU"]
+          },
+          "fields": {},
+          "shadow": false,
+          "topLevel": false
+        },
+        "HfkUF|t#_7.iY^nfrFe:": {
+          "opcode": "operator_equals",
+          "next": null,
+          "parent": "sj2=4K5a;]y360[,#t[s",
+          "inputs": {
+            "OPERAND1": [
+              3,
+              [12, "config.thumbnail", ".|Glg]t{il%?^s(JY)U("],
+              [10, ""]
+            ],
+            "OPERAND2": [1, [10, "1"]]
+          },
+          "fields": {},
+          "shadow": false,
+          "topLevel": false
+        },
+        ")VMHrryaE`(nJ$kFXM^U": {
+          "opcode": "motion_gotoxy",
+          "next": "jg2DH#T:|fg%GcB^$f9C",
+          "parent": "sj2=4K5a;]y360[,#t[s",
+          "inputs": { "X": [1, [4, "0"]], "Y": [1, [4, "0"]] },
+          "fields": {},
+          "shadow": false,
+          "topLevel": false
+        },
+        "jg2DH#T:|fg%GcB^$f9C": {
+          "opcode": "looks_gotofrontback",
+          "next": "B0YP6N,zxG/=e.gxz-37",
+          "parent": ")VMHrryaE`(nJ$kFXM^U",
+          "inputs": {},
+          "fields": { "FRONT_BACK": ["front", null] },
+          "shadow": false,
+          "topLevel": false
+        },
+        "B0YP6N,zxG/=e.gxz-37": {
+          "opcode": "looks_show",
+          "next": null,
+          "parent": "jg2DH#T:|fg%GcB^$f9C",
+          "inputs": {},
+          "fields": {},
+          "shadow": false,
+          "topLevel": false
+        },
+        "]2K3dca(8[pV,LPl(CpU": {
+          "opcode": "event_broadcast",
+          "next": null,
+          "parent": "sj2=4K5a;]y360[,#t[s",
+          "inputs": {
+            "BROADCAST_INPUT": [
+              1,
+              [11, "svideo.hideThumbnail()", "G{2;(fe*a#B_rV*cD3`#"]
+            ]
+          },
+          "fields": {},
+          "shadow": false,
+          "topLevel": false
+        },
+        "iTVZ`lrNx9SK:i5Mc+fm": {
+          "opcode": "event_whenbroadcastreceived",
+          "next": "*}|0Z4JG[H]]wZWOxeh1",
+          "parent": null,
+          "inputs": {},
+          "fields": {
+            "BROADCAST_OPTION": [
+              "svideo.hideThumbnail()",
+              "G{2;(fe*a#B_rV*cD3`#"
+            ]
+          },
+          "shadow": false,
+          "topLevel": true,
+          "x": 438,
+          "y": -179
+        },
+        "*}|0Z4JG[H]]wZWOxeh1": {
+          "opcode": "looks_hide",
+          "next": null,
+          "parent": "iTVZ`lrNx9SK:i5Mc+fm",
+          "inputs": {},
+          "fields": {},
+          "shadow": false,
+          "topLevel": false
+        }
+      },
+      "comments": {},
+      "currentCostume": 0,
+      "costumes": [
+        {
+          "name": "Video Thumbnail",
+          "bitmapResolution": 2,
+          "dataFormat": "png",
+          "assetId": "c90f959b29351fedd59976c98cbab1fd",
+          "md5ext": "c90f959b29351fedd59976c98cbab1fd.png",
+          "rotationCenterX": 480,
+          "rotationCenterY": 360
+        }
+      ],
+      "sounds": [
+        {
+          "name": "pop",
+          "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+          "dataFormat": "wav",
+          "format": "",
+          "rate": 48000,
+          "sampleCount": 1123,
+          "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+        }
+      ],
+      "volume": 100,
+      "layerOrder": 2,
+      "visible": false,
+      "x": 0,
+      "y": 0,
+      "size": 100,
       "direction": 90,
       "draggable": false,
       "rotationStyle": "all around"
@@ -827,13 +1083,13 @@
       "id": "aZuYa!yv*JbF;)iVVwZM",
       "mode": "default",
       "opcode": "data_variable",
-      "params": { "VARIABLE": "frame" },
+      "params": { "VARIABLE": "frameTime" },
       "spriteName": null,
-      "value": 757,
+      "value": 2821,
       "width": 0,
       "height": 0,
       "x": 5,
-      "y": 117,
+      "y": 29,
       "visible": false,
       "sliderMin": 0,
       "sliderMax": 100,
@@ -941,7 +1197,7 @@
       "opcode": "data_variable",
       "params": { "VARIABLE": "SCRATCH_HEIGHT" },
       "spriteName": null,
-      "value": "360",
+      "value": 360,
       "width": 0,
       "height": 0,
       "x": 105,
@@ -1000,26 +1256,55 @@
       "isDiscrete": true
     },
     {
-      "id": "C+]WRcgddAOnD,GFL2dI",
-      "mode": "slider",
-      "opcode": "data_variable",
-      "params": { "VARIABLE": "config.thumbnailFrame" },
+      "id": ",$F5u1JZjw8X|9o]kINU",
+      "mode": "list",
+      "opcode": "data_listcontents",
+      "params": { "LIST": "duplcateFrames" },
       "spriteName": null,
-      "value": 0,
+      "value": [],
+      "width": 100,
+      "height": 360,
+      "x": 382,
+      "y": 257,
+      "visible": false
+    },
+    {
+      "id": "5)dx$ucTj*{xQoN)=Le?",
+      "mode": "default",
+      "opcode": "data_variable",
+      "params": { "VARIABLE": "spritesheetFrame" },
+      "spriteName": null,
+      "value": 2604,
       "width": 0,
       "height": 0,
       "x": 5,
       "y": 5,
-      "visible": true,
+      "visible": false,
       "sliderMin": 0,
-      "sliderMax": [false, 21, 6],
+      "sliderMax": 100,
+      "isDiscrete": true
+    },
+    {
+      "id": ".|Glg]t{il%?^s(JY)U(",
+      "mode": "default",
+      "opcode": "data_variable",
+      "params": { "VARIABLE": "config.thumbnail" },
+      "spriteName": null,
+      "value": "1",
+      "width": 0,
+      "height": 0,
+      "x": 5,
+      "y": 57,
+      "visible": false,
+      "sliderMin": 0,
+      "sliderMax": 100,
       "isDiscrete": true
     }
   ],
   "extensions": [],
   "meta": {
     "semver": "3.0.0",
-    "vm": "0.2.0-prerelease.20211110140254",
-    "agent": "SVideo for Scratch - https://github.com/7coil/svideo"
+    "vm": "1.0.1",
+    "agent": "SVideo for Scratch 8.0.0 - https://github.com/7coil/svideo"
   }
 }

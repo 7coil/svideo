@@ -24,39 +24,16 @@ interface ExtractInput {
   audioInterval: number;
 }
 
-interface ExtractVideoInput {
-  width: number;
-  height: number;
-  format: ImageFileFormats;
-  container: Container;
-  compressionLevel: number;
-  video: Video;
-  framerate: number | null;
-  rows: number;
-  columns: number;
-  tempFolder: string;
-  subtitles: string;
-  videoFilters: string;
-  backgroundColour: string;
-  startPosition: string | undefined;
-  endPosition: string | undefined;
-}
-
-interface ExtractAudioInput {
-  video: Video;
-  tempFolder: string;
-  audioInterval: number;
-  startPosition: string | undefined;
-  endPosition: string | undefined;
-}
-
 class FFmpeg {
+  static dropCountRegex = /drop_count:(-?\d+)/;
+
   static createVideoFilters(input: ExtractInput) {
     const filters: string[] = [];
 
     if (input.videoFilters) filters.push(input.videoFilters);
     if (input.framerate) filters.push("fps=fps=" + input.framerate);
 
+    filters.push("mpdecimate");
     filters.push(
       `scale=${input.width}:${input.height}:force_original_aspect_ratio=decrease`
     );
@@ -80,25 +57,32 @@ class FFmpeg {
     return FFmpeg.createVideoFilters(input).join(",");
   }
 
-  static convert(input: ExtractInput) {
-    return new Promise<void>((resolve, reject) => {
+  static convert(input: ExtractInput): Promise<number[]> {
+    return new Promise<number[]>((resolve, reject) => {
       const args: string[] = [];
 
+      // The Video input
       args.push("-i", input.video.path);
+
+      // Set a loglevel of debug to allow SVideo to
+      // detect skipped frames
+      args.push("-loglevel", "debug");
 
       /**
        * Video Section
        */
       if (input.startPosition) args.push("-ss", input.startPosition);
       if (input.endPosition) args.push("-to", input.endPosition);
-      args.push("-vf", FFmpeg.createVideoFiltersString(input));
 
+      args.push("-vsync", "0");
+      args.push("-frame_pts", "true");
+      args.push("-vf", FFmpeg.createVideoFiltersString(input));
       args.push("-map", "0:v");
-      args.push("-c:v", "mjpeg");
 
       // Add format dependant arguments
       switch (input.format) {
         case ImageFileFormats.JPEG:
+          args.push("-c:v", "mjpeg");
           args.push("-q:v", input.compressionLevel.toString());
           break;
         case ImageFileFormats.PNG:
@@ -127,11 +111,29 @@ class FFmpeg {
         args.push(path.resolve(input.tempFolder, "000.mp3"));
       }
 
-      const ffmpeg = spawn(
-        "ffmpeg" + PlatformInformation.getPlatformBinaryExtension(),
-        args,
-        { stdio: "inherit", cwd: input.tempFolder }
-      );
+      let reverseTime = 0;
+      const frameReverse: number[] = [];
+
+      const ffmpeg = spawn(PlatformInformation.getEncoderBinaryPath(), args, {
+        cwd: input.tempFolder,
+      });
+
+      ffmpeg.stderr.on("data", (chunk) => {
+        const textChunk = chunk.toString("utf-8");
+        const mcdecimateLine = this.dropCountRegex.exec(textChunk);
+
+        if (mcdecimateLine) {
+          // ffmpeg has just processed a frame - See if we've dropped a frame or not.
+          const dropCount = parseInt(mcdecimateLine[1], 10);
+
+          // Every time we drop a frame, we must increase the number of frames
+          // that we are "looking back" over time.
+          if (dropCount > 0) reverseTime--;
+
+          // Record the current number of frames to "look back"
+          frameReverse.push(reverseTime);
+        }
+      });
 
       ffmpeg.on("exit", (code) => {
         if (input.subtitles) {
@@ -148,7 +150,7 @@ class FFmpeg {
           console.error("Failed Arguments: ", args);
           reject(new Error(`FFmpeg exited with exit code ${code}`));
         } else {
-          resolve();
+          resolve(frameReverse);
         }
       });
     });

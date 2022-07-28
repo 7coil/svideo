@@ -12,6 +12,7 @@ enum ProjectBuilderReplacement {
   PICTURES = 7,
   AUDIO = 8,
   AUDIO_COUNT = 9,
+  FRAME_REVERSE = 10,
 }
 
 class ProjectBuilder {
@@ -59,10 +60,7 @@ class ProjectBuilder {
         ProjectBuilderReplacement.TOTAL,
         costumes.length * framesPerSheet
       )
-      .injectField(
-        ProjectBuilderReplacement.AUDIO_COUNT,
-        audio.length - 1
-      )
+      .injectField(ProjectBuilderReplacement.AUDIO_COUNT, audio.length - 1);
 
     return this;
   }
