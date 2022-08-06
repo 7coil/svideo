@@ -23,7 +23,7 @@ class Video {
 
   async init(): Promise<void> {
     const data = await ffprobe(this.path, {
-      path: "ffprobe" + PlatformInformation.getPlatformBinaryExtension(),
+      path: PlatformInformation.getFfprobeBinaryPath(),
     });
 
     const videoStream = data.streams.find(

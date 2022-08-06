@@ -8,6 +8,7 @@ import { FFmpeg } from "./FFmpeg";
 import { FileRenamer } from "./FileRenamer";
 import { ProjectBuilder, ProjectBuilderReplacement } from "./ProjectBuilder";
 import { Video } from "./Video";
+import { PlatformInformation } from "./PlatformInformation";
 
 const SCRATCH_WIDTH = 480;
 const MAGIC_SCRATCH_NUMBER = 2;
@@ -53,6 +54,8 @@ class App {
     temp folder       : ${this.tempFolder}
     subtitles         : ${this.subtitles || "None"}
     audio interval    : ${this.audioInterval || "None"}
+    ffmpeg            : ${PlatformInformation.getEncoderBinaryPath()}
+    ffprobe           : ${PlatformInformation.getFfprobeBinaryPath()}
     `;
   }
 
